@@ -59,14 +59,22 @@ Page {
               opacity: index === tumbler.currentIndex ? 1 : 0.25
             }
             property bool active: false
-            onCurrentIndexChanged: if (active) api.values.setProperty(column.number, "value", currentIndex)
+            onCurrentIndexChanged: {
+              if (active) {
+                api.values.setProperty(column.number, "value", currentIndex)
+                forceActiveFocus()
+              }
+            }
             Component.onCompleted: { currentIndex = column.value; active = true }
           }
         }
         Switch {
           id: circledSwitch
           checked: model.circled
-          onCheckedChanged: api.values.setProperty(index, "circled", checked)
+          onCheckedChanged: {
+            api.values.setProperty(index, "circled", checked)
+            forceActiveFocus()
+          }
         }
       }
     }
