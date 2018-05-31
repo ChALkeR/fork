@@ -16,6 +16,7 @@ Page {
       placeholderText: "Имя"
       inputMethodHints: Qt.ImhNoPredictiveText
       onTextChanged: api.name = text
+      onEditingFinished: row.forceActiveFocus()
     }
   }
   MouseArea {
@@ -23,6 +24,7 @@ Page {
     onClicked: parent.forceActiveFocus()
   }
   Row {
+    id: row
     anchors.centerIn: parent
     Repeater {
       id: letters
