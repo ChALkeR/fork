@@ -88,4 +88,10 @@ Item {
       messageId = id;
     }
   }
+  Timer {
+    running: true
+    repeat: true
+    interval: 60 * 1000 // re-publish every minute
+    onTriggered: publishTimer.restart()
+  }
 }
