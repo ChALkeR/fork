@@ -11,7 +11,6 @@ Item {
   property string token
   property string message
   onNameChanged: build()
-  onMessageChanged: console.log(message)
 
   Component.onCompleted: {
     if (!token) {
@@ -33,6 +32,7 @@ Item {
       });
     }
     build();
+    publishTimer.restart();
 
     for (var j = 0; j < 10; j++) {
       people.append({
@@ -67,5 +67,23 @@ Item {
       };
     }
     message = JSON.stringify(msg);
+  }
+
+  onMessageChanged: publishTimer.restart()
+
+  Timer {
+    id: publishTimer
+    interval: 5000
+    running: false
+    onTriggered: publish()
+  }
+
+  property int selfMessage: -1
+  function publish() {
+    if (selfMessage >= 0) Native.unpublishMessage(selfMessage);
+    console.log("Publishing:", message);
+    var id = Native.publishMessage(message, "fork.self");
+    console.log("Publish id:", id);
+    selfMessage = id;
   }
 }
