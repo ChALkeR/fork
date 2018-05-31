@@ -29,24 +29,35 @@ Page {
         property string letter: model.letter
         property int value: model.value
         property int number: index
-        Tumbler {
-          id: tumbler
-          model: 3
-          delegate: Item {
+        Item {
+          height: tumbler.height
+          width: parent.width
+          Rectangle {
+            anchors.left: tumbler.left
+            anchors.right: tumbler.right
+            anchors.verticalCenter: tumbler.verticalCenter
+            color: palette.alternateBase
             height: 40
-            width: parent.width
-            Letter {
-              size: 24
-              letter: column.letter
-              anchors.centerIn: parent
-              circled: circledSwitch.checked
-              value: index
-            }
-            opacity: index === tumbler.currentIndex ? 1 : 0.25
           }
-          property bool active: false
-          onCurrentIndexChanged: if (active) api.values.setProperty(column.number, "value", currentIndex)
-          Component.onCompleted: { currentIndex = column.value; active = true }
+          Tumbler {
+            id: tumbler
+            model: 3
+            delegate: Item {
+              height: 40
+              width: parent.width
+              Letter {
+                size: 24
+                letter: column.letter
+                anchors.centerIn: parent
+                circled: circledSwitch.checked
+                value: index
+              }
+              opacity: index === tumbler.currentIndex ? 1 : 0.25
+            }
+            property bool active: false
+            onCurrentIndexChanged: if (active) api.values.setProperty(column.number, "value", currentIndex)
+            Component.onCompleted: { currentIndex = column.value; active = true }
+          }
         }
         Switch {
           id: circledSwitch
