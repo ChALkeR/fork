@@ -13,6 +13,7 @@ Page {
       font.pixelSize: 18
       anchors.centerIn: parent
       placeholderText: "Имя"
+      inputMethodHints: Qt.ImhNoPredictiveText
       onTextChanged: api.name = text
     }
   }
