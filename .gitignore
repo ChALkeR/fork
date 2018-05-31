@@ -2,4 +2,5 @@
 *.qmlc
 *.jsc
 *.pro.user
+*.qmlproject.user
 ios/NearbyMessages-*
