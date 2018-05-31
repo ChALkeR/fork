@@ -18,6 +18,10 @@ Page {
       onTextChanged: api.name = text
     }
   }
+  MouseArea {
+    anchors.fill: parent
+    onClicked: parent.forceActiveFocus()
+  }
   Row {
     anchors.centerIn: parent
     Repeater {
