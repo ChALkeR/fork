@@ -57,6 +57,7 @@ Item {
     var msg = {
       token: token,
       name: name,
+      time: Date.now(),
       values: {}
     };
     for (var i = 0; i < values.count; i++) {
