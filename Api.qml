@@ -12,6 +12,8 @@ Item {
   property string message
   onNameChanged: build()
 
+  property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
+
   Component.onCompleted: {
     if (!token) {
       token = Math.random().toString(36).slice(2);
