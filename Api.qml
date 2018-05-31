@@ -66,24 +66,24 @@ Item {
         circled: values.get(i).circled
       };
     }
-    message = JSON.stringify(msg);
+    var json = JSON.stringify(msg);
+    if (message !== json) {
+      message = json;
+      publishTimer.restart();
+    }
   }
-
-  onMessageChanged: publishTimer.restart()
 
   Timer {
     id: publishTimer
     interval: 5000
     running: false
-    onTriggered: publish()
-  }
-
-  property int selfMessage: -1
-  function publish() {
-    if (selfMessage >= 0) Native.unpublishMessage(selfMessage);
-    console.log("Publishing:", message);
-    var id = Native.publishMessage(message, "fork.self");
-    console.log("Publish id:", id);
-    selfMessage = id;
+    property int messageId: -1
+    onTriggered: {
+      if (messageId >= 0) Native.unpublishMessage(messageId);
+      console.log("Publishing:", message, "fork.self");
+      var id = Native.publishMessage(message, "fork.self");
+      console.log("Publish id:", id);
+      messageId = id;
+    }
   }
 }
