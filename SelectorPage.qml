@@ -10,6 +10,7 @@ Page {
     }
     TextField {
       text: api.name
+      width: parent.width - 20
       font.pixelSize: 18
       anchors.centerIn: parent
       placeholderText: "Имя"
