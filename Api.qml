@@ -51,6 +51,10 @@ Item {
     publishTimer.restart();
     publishPeopleTimer.restart();
 
+    if (typeof Native !== 'undefined') {
+      Native.apiConnect();
+    }
+
     // UI demo
     if (typeof Native !== 'undefined') return;
     if (people.count > 0) return;
