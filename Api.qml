@@ -185,7 +185,7 @@ Item {
     });
 
     var json = JSON.stringify(jsonPeople);
-    if (messagePeople !== jsonPeople) {
+    if (messagePeople !== json) {
       messagePeople = json;
       publishPeopleTimer.restart();
     }
