@@ -165,7 +165,7 @@ Item {
     jsonPeople = jsonPeople.filter(function(entry, index, arr) {
       if (index === 0) return true;
       var prev = arr[index - 1];
-      return entry.token !== prev.token || entry.hops !== prev.hops && entry.valid >= prev.valid;
+      return entry.token !== prev.token || entry.hops !== prev.hops && entry.valid > prev.valid;
     });
 
     // Create the list of most up-to-date data to display
