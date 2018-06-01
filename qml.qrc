@@ -7,5 +7,6 @@
         <file>SelectorPage.qml</file>
         <file>MainView.qml</file>
         <file>StatusOverlay.qml</file>
+        <file>TvView.qml</file>
     </qresource>
 </RCC>
