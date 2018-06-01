@@ -5,5 +5,7 @@
         <file>Letter.qml</file>
         <file>Api.qml</file>
         <file>SelectorPage.qml</file>
+        <file>MainView.qml</file>
+        <file>StatusOverlay.qml</file>
     </qresource>
 </RCC>
