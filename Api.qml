@@ -108,7 +108,7 @@ Item {
     }
   }
   Timer {
-    running: true
+    running: typeof Native !== 'undefined'
     repeat: true
     interval: 60 * 1000
     onTriggered: {
