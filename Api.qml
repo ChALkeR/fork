@@ -50,8 +50,8 @@ Item {
     publishTimer.restart();
     publishPeopleTimer.restart();
 
-    /*
     // UI demo
+    if (typeof Native !== 'undefined') return;
     if (people.count > 0) return;
     for (var j = 0; j < 10; j++) {
       people.append({
@@ -65,7 +65,6 @@ Item {
         ])
       });
     }
-    */
   }
   Settings {
     property alias name: api.name

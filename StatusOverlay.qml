@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
   id: overlay
   anchors.fill: parent
-  visible: api.apiStatus < 1
+  visible: api.apiStatus < 1 && typeof Native !== 'undefined'
   Rectangle {
     anchors.fill: parent
     color: palette.alternateBase
