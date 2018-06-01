@@ -12,9 +12,16 @@ Item {
   property string message
   property string messagePeople
   property var jsonPeople: []
+  property int apiStatus: Native.apiStatus
   onNameChanged: build()
 
   property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
+
+  onApiStatusChanged: {
+    console.log('apiStatus', apiStatus);
+    publishTimer.restart();
+    publishPeopleTimer.restart();
+  }
 
   Component.onCompleted: {
     if (!token) {
@@ -36,10 +43,11 @@ Item {
       });
     }
     build();
-    publishTimer.restart();
 
     jsonPeople = messagePeople ? JSON.parse(messagePeople) : [];
     processPeople();
+
+    publishTimer.restart();
     publishPeopleTimer.restart();
 
     /*
@@ -92,6 +100,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
+      if (apiStatus !== 1) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", message, "fork.self");
       var id = Native.publishMessage(message, "fork.self");
@@ -186,6 +195,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
+      if (apiStatus !== 1) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", messagePeople, "fork.others");
       var id = Native.publishMessage(messagePeople, "fork.others");
