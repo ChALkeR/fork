@@ -167,6 +167,7 @@ Item {
     });
     people.clear();
     recent.forEach(function(entry) {
+      if (entry.token === token) return;
       if (shown.indexOf(entry.token) !== -1) return;
       shown.push(entry.token);
       var element = {
