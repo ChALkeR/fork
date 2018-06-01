@@ -12,7 +12,7 @@ Item {
     color: 'transparent'
     visible: circled
     radius: size
-    border.width: 1
+    border.width: Math.max(1, Math.round(size / 30))
     border.color: parent.color
   }
 
