@@ -6,6 +6,7 @@ ApplicationWindow {
   visible: true
   width: 320
   height: 640
+  visibility: api.isTv ? ApplicationWindow.FullScreen : ApplicationWindow.AutomaticVisibility
   title: qsTr("Кочерга.ФОРК")
 
   Api {
