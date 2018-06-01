@@ -101,6 +101,7 @@ Item {
     property int messageId: -1
     onTriggered: {
       if (apiStatus !== 1) return;
+      if (isTv) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", message, "fork.self");
       var id = Native.publishMessage(message, "fork.self");
