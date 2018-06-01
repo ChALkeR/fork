@@ -18,6 +18,24 @@ Item {
 
   property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
 
+  function getLetters(msg) {
+    var keys = "potc";
+    var letters = "ФОРК";
+    var raw = msg.data || {};
+    var data = [];
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      var entry = raw[key] || [1, 0];
+      data.push({
+        key: key,
+        letter: letters[i],
+        value: entry[0] || 0,
+        circled: entry[1] ? true : false
+      });
+    }
+    return data;
+  }
+
   onApiStatusChanged: {
     console.log('apiStatus', apiStatus);
     publishTimer.restart();
@@ -29,20 +47,10 @@ Item {
       token = Math.random().toString(36).slice(2);
     }
 
-    var keys = "potc";
-    var letters = "ФОРК";
     var parsed = message ? JSON.parse(message) : {};
-    if (!parsed.values) parsed.values = {};
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
-      var entry = parsed.values[key] || { value: 1, circled: false };
-      values.append({
-        key: key,
-        letter: letters[i],
-        value: entry.value || 0,
-        circled: entry.circled || false
-      });
-    }
+    getLetters(parsed).forEach(function(entry) {
+      values.append(entry);
+    });
     build();
 
     jsonPeople = messagePeople ? JSON.parse(messagePeople) : [];
@@ -83,13 +91,13 @@ Item {
       token: token,
       name: name,
       valid: Date.now(),
-      values: {}
+      data: {}
     };
     for (var i = 0; i < values.count; i++) {
-      msg.values[values.get(i).key] = {
-        value: values.get(i).value,
-        circled: values.get(i).circled
-      };
+      msg.data[values.get(i).key] = [
+        values.get(i).value,
+        values.get(i).circled ? 1 : 0
+      ];
     }
     var json = JSON.stringify(msg);
     if (message !== json) {
@@ -178,12 +186,7 @@ Item {
         name: entry.name,
         token: entry.token,
         valid: entry.valid,
-        letters: ([
-          { key: "p", letter: "Ф", value: entry.values.p.value || 0, circled: entry.values.p.circled || false },
-          { key: "o", letter: "О", value: entry.values.o.value || 0, circled: entry.values.o.circled || false },
-          { key: "t", letter: "Р", value: entry.values.t.value || 0, circled: entry.values.t.circled || false },
-          { key: "c", letter: "К", value: entry.values.c.value || 0, circled: entry.values.c.circled || false }
-        ])
+        letters: getLetters(entry)
       };
       people.append(element);
     });
