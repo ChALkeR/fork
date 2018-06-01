@@ -108,7 +108,7 @@ Item {
 
   Timer {
     id: publishTimer
-    interval: 5000
+    interval: 500
     running: false
     property int messageId: -1
     onTriggered: {
@@ -200,7 +200,7 @@ Item {
 
   Timer {
     id: publishPeopleTimer
-    interval: 5000
+    interval: 500
     running: false
     property int messageId: -1
     onTriggered: {
