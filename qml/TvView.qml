@@ -26,8 +26,11 @@ Page {
     }
     Text {
       visible: !rename.visible
+      width: parent.width - 20
+      horizontalAlignment: Text.AlignHCenter
       font.pixelSize: Math.min(parent.height * 0.7, parent.width * 0.05)
       text: api.tvHeader
+      fontSizeMode: Text.Fit
       anchors.centerIn: parent
     }
     MouseArea {
