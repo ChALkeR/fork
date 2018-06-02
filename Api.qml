@@ -237,4 +237,10 @@ Item {
     }
     onNearbyOwnMessage: console.log("NearbyOwnMessage:", status, id, message, type)
   }
+
+  Timer {
+    interval: 100
+    running: Native.nearbySubscriptionStatus <= 0 && Native.apiStatus > 0
+    onTriggered: Native.nearbySubscribe()
+  }
 }
