@@ -31,6 +31,7 @@ Page {
       font.pixelSize: Math.min(parent.height * 0.7, parent.width * 0.05)
       text: api.tvHeader
       fontSizeMode: Text.Fit
+      elide: Text.ElideRight
       anchors.centerIn: parent
     }
     MouseArea {
