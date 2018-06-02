@@ -5,6 +5,10 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setOrganizationName("ChALkeR");
+    QCoreApplication::setOrganizationDomain("oserv.org");
+    QCoreApplication::setApplicationName("TOSC");
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
