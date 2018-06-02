@@ -44,41 +44,13 @@ Page {
       delegate: Item {
         width: flow.base * 16
         height: flow.base * 9
-        Item {
-          width: 16 * 20
-          height: 9 * 20
+        Badge {
+          token: model.token
+          name: model.name
+          letters: model.letters
+
           scale: parent.width / width
           transformOrigin: Item.TopLeft
-
-          Rectangle {
-            anchors.fill: parent
-            color: palette.alternateBase
-          }
-          Text {
-            anchors.fill: parent
-            anchors.topMargin: 20
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
-            horizontalAlignment: Text.AlignHCenter
-            text: model.name || ("Гость " + api.token.slice(0, 12))
-            font.pixelSize: 28
-            elide: Text.ElideRight
-          }
-          Row {
-            spacing: 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 25
-            Repeater {
-              model: letters
-              delegate: Letter {
-                size: 60
-                letter: model.letter
-                value: model.value
-                circled: model.circled
-              }
-            }
-          }
         }
       }
     }
