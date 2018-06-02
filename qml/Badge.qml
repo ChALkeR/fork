@@ -24,6 +24,7 @@ Item {
     text: badge.name || ("Гость " + badge.token.slice(0, 12))
     font.pixelSize: 60
     fontSizeMode: Text.Fit
+    elide: Text.ElideRight
   }
   Row {
     spacing: 10
