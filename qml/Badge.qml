@@ -4,6 +4,7 @@ Item {
   id: badge
   width: 16 * 20
   height: 9 * 20
+  clip: true
 
   property string token
   property string name
@@ -14,14 +15,15 @@ Item {
     color: palette.alternateBase
   }
   Text {
-    anchors.fill: parent
-    anchors.topMargin: 20
-    anchors.leftMargin: 10
-    anchors.rightMargin: 10
+    x: 10
+    y: 10
+    width: parent.width - 20
+    height: 60
     horizontalAlignment: Text.AlignHCenter
+    verticalAlignment: Text.AlignVCenter
     text: badge.name || ("Гость " + badge.token.slice(0, 12))
-    font.pixelSize: 28
-    elide: Text.ElideRight
+    font.pixelSize: 60
+    fontSizeMode: Text.Fit
   }
   Row {
     spacing: 10
