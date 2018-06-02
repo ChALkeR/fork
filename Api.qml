@@ -12,6 +12,7 @@ Item {
   property string message
   property string messagePeople
   property var jsonPeople: []
+  property bool haveApi: typeof Native !== 'undefined'
   property int apiStatus: Native.apiStatus
   property bool isTv: window.width > window.height // TODO: detect touch points instead
   onNameChanged: build()
@@ -36,12 +37,6 @@ Item {
     return data;
   }
 
-  onApiStatusChanged: {
-    console.log('apiStatus', apiStatus);
-    publishTimer.restart();
-    publishPeopleTimer.restart();
-  }
-
   Component.onCompleted: {
     if (!token) {
       token = Math.random().toString(36).slice(2);
@@ -59,24 +54,24 @@ Item {
     publishTimer.restart();
     publishPeopleTimer.restart();
 
-    if (typeof Native !== 'undefined') {
+    if (haveApi) {
       Native.apiConnect();
     }
 
     // UI demo
-    if (typeof Native !== 'undefined') return;
-    if (people.count > 0) return;
-    for (var j = 0; j < 10; j++) {
-      people.append({
-        name: "Пример " + j,
-        token: Math.random().toString(36).slice(2),
-        letters: ([
-          { key: "p", letter: "Ф", value: Math.random() * 3, circled: Math.random() > 0.5 },
-          { key: "o", letter: "О", value: Math.random() * 3, circled: Math.random() > 0.5 },
-          { key: "t", letter: "Р", value: Math.random() * 3, circled: Math.random() > 0.5 },
-          { key: "c", letter: "К", value: Math.random() * 3, circled: Math.random() > 0.5 }
-        ])
-      });
+    if (!haveApi && people.count === 0) {
+      for (var j = 0; j < 10; j++) {
+        people.append({
+          name: "Пример " + j,
+          token: Math.random().toString(36).slice(2),
+          letters: ([
+            { key: "p", letter: "Ф", value: Math.random() * 3, circled: Math.random() > 0.5 },
+            { key: "o", letter: "О", value: Math.random() * 3, circled: Math.random() > 0.5 },
+            { key: "t", letter: "Р", value: Math.random() * 3, circled: Math.random() > 0.5 },
+            { key: "c", letter: "К", value: Math.random() * 3, circled: Math.random() > 0.5 }
+          ])
+        });
+      }
     }
   }
   Settings {
@@ -112,7 +107,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
-      if (apiStatus !== 1) return;
+      if (Native.apiStatus !== 1) return;
       if (isTv) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", message, "fork.self");
@@ -204,7 +199,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
-      if (apiStatus !== 1) return;
+      if (Native.apiStatus !== 1) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", messagePeople, "fork.others");
       var id = Native.publishMessage(messagePeople, "fork.others");
@@ -236,6 +231,12 @@ Item {
       processPeople();
     }
     onNearbyOwnMessage: console.log("NearbyOwnMessage:", status, id, message, type)
+    onApiStatusChanged: {
+      console.log('apiStatus', Native.apiStatus);
+      if (Native.apiStatus <= 0) return;
+      publishTimer.restart();
+      publishPeopleTimer.restart();
+    }
   }
 
   Timer {

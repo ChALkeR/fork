@@ -4,7 +4,7 @@ Item {
   id: overlay
   anchors.fill: parent
   visible: opacity > 0
-  property bool show: api.apiStatus < 1 && typeof Native !== 'undefined'
+  property bool show: api.apiStatus < 1 && api.haveApi
   opacity: show ? 1 : 0
   Behavior on opacity {
     NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
