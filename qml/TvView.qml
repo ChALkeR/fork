@@ -25,9 +25,32 @@ Page {
       color: palette.alternateBase
     }
     Text {
+      visible: !rename.visible
       font.pixelSize: Math.min(parent.height * 0.7, parent.width * 0.05)
-      text: "Сегодня в Кочерге"
+      text: api.tvHeader
       anchors.centerIn: parent
+    }
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        rename.visible = true
+        rename.forceActiveFocus()
+      }
+    }
+    TextField {
+      id: rename
+      visible: false
+      font.pixelSize: Math.min(parent.height * 0.7, parent.width * 0.05)
+      width: parent.width - 20
+      anchors.centerIn: parent
+      text: api.tvHeader
+      inputMethodHints: Qt.ImhNoPredictiveText
+      horizontalAlignment: Text.AlignHCenter
+      onEditingFinished: {
+        api.tvHeader = text
+        header.forceActiveFocus()
+        visible = false
+      }
     }
   }
 

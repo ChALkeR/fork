@@ -17,6 +17,7 @@ Item {
   property bool isTv: window.width > window.height // TODO: detect touch points instead
   property int addHop: isTv ? 0 : 1 // TV doesn't add hops, just relays messages
   onNameChanged: build()
+  property string tvHeader: 'Сегодня пришли:'
 
   property string keys: 'tosc'
   property string letters: 'ФОРК'
@@ -83,6 +84,7 @@ Item {
     property alias token: api.token
     property alias message: api.message
     property alias messagePeople: api.messagePeople
+    property alias tvHeader: api.tvHeader
   }
 
   function build() {
