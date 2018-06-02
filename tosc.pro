@@ -10,7 +10,7 @@ SOURCES += \
 HEADERS += \
     native.h
 
-RESOURCES += qml.qrc
+RESOURCES += qml/qml.qrc
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 android {
