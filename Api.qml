@@ -15,6 +15,7 @@ Item {
   property bool haveApi: typeof Native !== 'undefined'
   property int apiStatus: Native.apiStatus
   property bool isTv: window.width > window.height // TODO: detect touch points instead
+  property int addHop: isTv ? 0 : 1 // TV doesn't add hops, just relays messages
   onNameChanged: build()
 
   property string keys: 'tosc'
@@ -132,8 +133,8 @@ Item {
   function processPeople() {
     // Filter out invalid entries
     jsonPeople = jsonPeople.filter(function(entry) {
-      if (!entry.valid || !entry.hops || !entry.token) return false;
-      return entry.valid && entry.hops && entry.token && ttls[entry.hops];
+      if (!entry.valid || !('hops' in entry) || !entry.token) return false;
+      return entry.valid && ('hops' in entry) && entry.token && ttls[entry.hops || 1];
     });
 
     // Entries whose tokens are observed in given ttls are valid,
@@ -141,7 +142,7 @@ Item {
     var now = Date.now();
     var valid = []; // TODO: should be a Set once supported
     jsonPeople.forEach(function(entry) {
-      if (now > entry.valid + ttls[entry.hops] * 1000) return;
+      if (now > entry.valid + ttls[entry.hops || 1] * 1000) return;
       if (valid.indexOf(entry.token) !== -1) return;
       valid.push(entry.token);
     });
@@ -219,12 +220,12 @@ Item {
       var msg = JSON.parse(message);
       switch (type) {
       case "fork.self":
-        msg.hops = 1;
+        msg.hops = api.addHop;
         jsonPeople.push(msg);
         break;
       case "fork.others":
         msg.forEach(function(entry) {
-          entry.hops += 1;
+          entry.hops += api.addHop;
           jsonPeople.push(entry);
         });
         break;
