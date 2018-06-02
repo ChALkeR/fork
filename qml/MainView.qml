@@ -24,7 +24,9 @@ SwipeView {
           text: api.name || ("Гость " + api.token.slice(0, 12))
           font.pixelSize: 18
           anchors.verticalCenter: parent.verticalCenter
+          verticalAlignment: Text.AlignVCenter
           width: parent.width - (24 + 3) * 4
+          fontSizeMode: Text.Fit
           elide: Text.ElideRight
         }
         Repeater {
@@ -68,7 +70,9 @@ SwipeView {
           Text {
             text: model.name || ("Гость " + model.token.slice(0, 12))
             font.pixelSize: 18
+            verticalAlignment: Text.AlignVCenter
             Layout.fillWidth: true
+            fontSizeMode: Text.Fit
             elide: Text.ElideRight
           }
           Repeater {
