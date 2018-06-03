@@ -9,6 +9,7 @@ Item {
     onDataChanged: api.build()
   }
   property string name
+  property string pronoun
   property string token
   property string message
   property string messagePeople
@@ -25,6 +26,7 @@ Item {
   property string keys: 'tosc'
   property string letters: qsTr("TOSC")
   property var descriptions: Descriptions.descriptions
+  property var pronouns: Descriptions.pronouns
 
   property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
 
@@ -70,6 +72,7 @@ Item {
       for (var j = 0; j < 10; j++) {
         people.append({
           name: qsTr("Example") + " " + j,
+          pronoun: pronouns[Math.floor(Math.random() * (pronouns.length + 1))] || '',
           altName: "",
           token: Math.random().toString(36).slice(2),
           letters: keys.split('').map(function(key, i) {
@@ -86,6 +89,7 @@ Item {
   }
   Settings {
     property alias name: api.name
+    property alias pronoun: api.pronoun
     property alias token: api.token
     property alias message: api.message
     property alias messagePeople: api.messagePeople
@@ -96,6 +100,7 @@ Item {
     var msg = {
       token: token,
       name: name,
+      pronoun: pronoun,
       valid: Date.now(),
       data: {}
     };
@@ -190,6 +195,7 @@ Item {
       shown.push(entry.token);
       people.append({
         name: entry.name,
+        pronoun: entry.pronoun || '',
         altName: altPrefix + " " + entry.token.slice(0, 12),
         token: entry.token,
         valid: entry.valid,
