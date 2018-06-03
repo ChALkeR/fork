@@ -18,6 +18,11 @@
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>
+    <message>
+        <location filename="../qml/Api.qml" line="70"/>
+        <source>Example</source>
+        <translation>Пример</translation>
+    </message>
 </context>
 <context>
     <name>MainView</name>

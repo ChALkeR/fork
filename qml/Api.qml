@@ -67,7 +67,7 @@ Item {
     if (!haveApi && people.count === 0) {
       for (var j = 0; j < 10; j++) {
         people.append({
-          name: "Пример " + j,
+          name: qsTr("Example") + " " + j,
           altName: "",
           token: Math.random().toString(36).slice(2),
           letters: keys.split('').map(function(key, i) {
