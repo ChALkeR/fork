@@ -9,5 +9,6 @@
         <file>StatusOverlay.qml</file>
         <file>TvView.qml</file>
         <file>Badge.qml</file>
+        <file>descriptions.js</file>
     </qresource>
 </RCC>

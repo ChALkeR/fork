@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Qt.labs.settings 1.0
+import "descriptions.js" as Descriptions
 
 Item {
   id: api
@@ -23,6 +24,7 @@ Item {
 
   property string keys: 'tosc'
   property string letters: qsTr("TOSC")
+  property var descriptions: Descriptions.descriptions
 
   property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
 
