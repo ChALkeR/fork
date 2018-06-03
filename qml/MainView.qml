@@ -21,7 +21,7 @@ SwipeView {
         anchors.centerIn: parent
         spacing: 3
         Text {
-          text: api.name || ("Гость " + api.token.slice(0, 12))
+          text: api.name || api.altName
           font.pixelSize: 18
           anchors.verticalCenter: parent.verticalCenter
           verticalAlignment: Text.AlignVCenter
@@ -68,7 +68,7 @@ SwipeView {
           anchors.centerIn: parent
           spacing: 3
           Text {
-            text: model.name || ("Гость " + model.token.slice(0, 12))
+            text: model.name || model.altName
             font.pixelSize: 18
             verticalAlignment: Text.AlignVCenter
             Layout.fillWidth: true

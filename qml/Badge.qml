@@ -21,7 +21,7 @@ Item {
     height: 60
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
-    text: badge.name || ("Гость " + badge.token.slice(0, 12))
+    text: badge.name
     font.pixelSize: 60
     fontSizeMode: Text.Fit
     elide: Text.ElideRight

@@ -4,12 +4,17 @@
 <context>
     <name>Api</name>
     <message>
-        <location filename="../qml/Api.qml" line="20"/>
+        <location filename="../qml/Api.qml" line="21"/>
+        <source>Guest</source>
+        <translation>Гость</translation>
+    </message>
+    <message>
+        <location filename="../qml/Api.qml" line="22"/>
         <source>Seen recently:</source>
         <translation>Сегодня пришли:</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="23"/>
+        <location filename="../qml/Api.qml" line="25"/>
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>

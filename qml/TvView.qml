@@ -73,7 +73,7 @@ Page {
         height: flow.base * 9
         Badge {
           token: model.token
-          name: model.name
+          name: model.name || model.altName
           letters: model.letters
 
           scale: parent.width / width

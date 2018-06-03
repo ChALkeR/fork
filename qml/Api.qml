@@ -11,12 +11,14 @@ Item {
   property string token
   property string message
   property string messagePeople
+  property string altName: altPrefix + " " + token.slice(0, 12)
   property var jsonPeople: []
   property bool haveApi: typeof Native !== 'undefined'
   property int apiStatus: Native.apiStatus
   property bool isTv: window.width > window.height // TODO: detect touch points instead
   property int addHop: isTv ? 0 : 1 // TV doesn't add hops, just relays messages
   onNameChanged: build()
+  property string altPrefix: qsTr("Guest")
   property string tvHeader: qsTr("Seen recently:")
 
   property string keys: 'tosc'
@@ -66,6 +68,7 @@ Item {
       for (var j = 0; j < 10; j++) {
         people.append({
           name: "Пример " + j,
+          altName: "",
           token: Math.random().toString(36).slice(2),
           letters: keys.split('').map(function(key, i) {
             return {
@@ -183,13 +186,13 @@ Item {
       if (entry.token === token) return;
       if (shown.indexOf(entry.token) !== -1) return;
       shown.push(entry.token);
-      var element = {
+      people.append({
         name: entry.name,
+        altName: altPrefix + " " + entry.token.slice(0, 12),
         token: entry.token,
         valid: entry.valid,
         letters: getLetters(entry)
-      };
-      people.append(element);
+      });
     });
 
     var json = JSON.stringify(jsonPeople);
