@@ -32,8 +32,8 @@ Item {
     wrapMode: Text.Wrap
     horizontalAlignment: Text.AlignHCenter
     text: api.apiStatus < 0
-          ? "Включите разрешение Nearby Messages для работы приложения.\n\nОно необходимо для синхронизации статуса с устройствами поблизости."
-          : "Инициализация Nearby Messages..."
+          ? qsTr("Enable Nearby Messages permission for this app to work.\n\nIt is required to synchronize statuses with nearby devices.")
+          : qsTr("Initializing Nearby Messages...")
     font.pixelSize: 18
   }
 }

@@ -41,6 +41,23 @@
     </message>
 </context>
 <context>
+    <name>StatusOverlay</name>
+    <message>
+        <location filename="../qml/StatusOverlay.qml" line="35"/>
+        <source>Enable Nearby Messages permission for this app to work.
+
+It is required to synchronize statuses with nearby devices.</source>
+        <translation>Включите разрешение Nearby Messages для работы приложения.
+
+Оно необходимо для синхронизации статуса с устройствами поблизости.</translation>
+    </message>
+    <message>
+        <location filename="../qml/StatusOverlay.qml" line="36"/>
+        <source>Initializing Nearby Messages...</source>
+        <translation>Инициализация Nearby Messages...</translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
         <location filename="../qml/main.qml" line="12"/>
