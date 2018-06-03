@@ -11,4 +11,7 @@
         <file>Badge.qml</file>
         <file>descriptions.js</file>
     </qresource>
+    <qresource lang="ru" prefix="/">
+        <file alias="descriptions.js">descriptions.ru.js</file>
+    </qresource>
 </RCC>

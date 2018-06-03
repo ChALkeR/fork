@@ -1,30 +1,30 @@
 var descriptions = {
-  t: [['Не трогай меня',
-       'Руки прочь! Я не хочу, чтобы меня трогали, и это правда очень важно.'],
-      ['Спроси, хочу ли я контакта',
-       'Я очень хочу обниматься, но не со всеми. Не стесняйтесь спросить!'],
-      ['Готов(а) тебя обнимать!',
-       'Обнимите меня кто-нибудь!']
+  t: [['Do not touch me.',
+       'Hands off! I do not want to be touched, and that is really important.'],
+      ['Ask me if I want contact',
+       'I want hugs, but not from everyone. Don\'t hesitate to ask!'],
+      ['Free hugs',
+       'Please hug me!']
   ],
-  o: [['Не спрашивай меня о личном',
-       'Не лезь в мою жизнь! Личные вопросы мне очень неприятны.'],
-      ['Спроси, готов(а) ли я к личным вопросам.',
-       'Я очень хочу поговорить о личном, но не со всеми — сперва уточни.'],
-      ['Готов(а) к личным вопросам',
-       'Задай мне личный вопрос!']
+  o: [['Don\'t ask me personal questions',
+       'Personal questions hurt me. Mind your own business!'],
+      ['Ask me if I am ready for personal questions before asking them.',
+       'I want to talk about personal things, but not with everyone — ask first.'],
+      ['I am ready for personal questions',
+       'Please ask me personal questions!']
   ],
-  s: [['Не разговаривай со мной ни о чём',
-       'Не открывай рот смотря на меня. Я не буду ни с кем разговаривать, и это важно для меня.'],
-      ['Спроси о готовности разговаривать',
-       'Я очень хочу поговорить, но не со всеми — сперва уточни.'],
-      ['Всегда не прочь поболтать',
-       'Поговори со мной о чём-нибудь!']
+  s: [['Do not talk to me about anything',
+       'Do not speak at me. I am not going to talk to anyone, and that is important for me.'],
+      ['Ask me if I am ready to chat.',
+       'I want to chat, but not with everyone — ask first.'],
+      ['Ready to chat',
+       'Please talk to me!']
   ],
-  c: [['Не критикуй меня, я сам(а) запрошу обратную связь, когда мне это будет нужно.',
-       'Держи своё мнение при себе! Мне неприятна оценка моих действий, и это правда важно.'],
-      ['Узнай, готов(а) ли я выслушать критику',
-       'Я хочу обратной связи, но не от всех — сперва уточни.'],
-      ['Всегда готов(а) выслушать критику или другое мнение.',
-       'Следую правилу Крокера']
+  c: [['Don\'t criticize me, I will ask for input myself when I will need it.',
+       'Keep your opinion to yourself! I am hurt when others judge me, and that is important.'],
+      ['Before providing feedback, ask me if I am ready for it.',
+       'I want to receive feedback, but not from everyone — ask first.'],
+      ['I am always ready for your input, be it critics or praise.',
+       'Following Crocker\'s rules']
   ]
 }
