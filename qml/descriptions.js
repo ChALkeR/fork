@@ -28,3 +28,9 @@ var descriptions = {
        'Following Crocker\'s rules']
   ]
 }
+
+var pronouns = [
+  "ze/hir", "ze/zir", "she", "he", "they/.../themselves", "they/.../themself", "xey", "sie",
+  "it", "ey", "e", "hu", "peh", "per", "thon", "jee", "ve/ver", "xe", "zie/zir", "ze/zem",
+  "zie/zem", "ze/mer", "se", "zme", "ve/vem", "zee", "fae", "zie/hir", "si", "kit", "ne"
+]

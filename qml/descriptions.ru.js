@@ -28,3 +28,5 @@ var descriptions = {
        'Следую правилу Крокера']
   ]
 }
+
+var pronouns = []

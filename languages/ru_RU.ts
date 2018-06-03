@@ -4,22 +4,22 @@
 <context>
     <name>Api</name>
     <message>
-        <location filename="../qml/Api.qml" line="21"/>
+        <location filename="../qml/Api.qml" line="23"/>
         <source>Guest</source>
         <translation>Гость</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="22"/>
+        <location filename="../qml/Api.qml" line="24"/>
         <source>Seen recently:</source>
         <translation>Сегодня пришли:</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="25"/>
+        <location filename="../qml/Api.qml" line="27"/>
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="70"/>
+        <location filename="../qml/Api.qml" line="74"/>
         <source>Example</source>
         <translation>Пример</translation>
     </message>
@@ -35,12 +35,17 @@
 <context>
     <name>SelectorPage</name>
     <message>
-        <location filename="../qml/SelectorPage.qml" line="47"/>
+        <location filename="../qml/SelectorPage.qml" line="16"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../qml/SelectorPage.qml" line="163"/>
+        <location filename="../qml/SelectorPage.qml" line="56"/>
+        <source>Pronoun</source>
+        <translation>Местоимение</translation>
+    </message>
+    <message>
+        <location filename="../qml/SelectorPage.qml" line="219"/>
         <source>Go back</source>
         <translation>Вернуться</translation>
     </message>

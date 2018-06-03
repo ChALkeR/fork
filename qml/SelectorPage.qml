@@ -23,12 +23,53 @@ Page {
     anchors.fill: parent
     onClicked: parent.forceActiveFocus()
   }
+
+  Item {
+    id: pronounBlock
+    width: parent.width
+    visible: api.pronoun || api.pronouns.length > 0
+    height: 30
+    Rectangle {
+      anchors.fill: parent
+      color: Qt.lighter(palette.alternateBase, 1.01)
+    }
+    Text {
+      anchors.centerIn: parent
+      width: parent.width - 20
+      text: api.pronoun || '???'
+      font.pixelSize: 14
+      visible: !pronounInput.visible
+    }
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        pronounInput.visible = true
+        pronounInput.forceActiveFocus()
+      }
+    }
+    TextField {
+      id: pronounInput
+      visible: false
+      anchors.centerIn: parent
+      width: parent.width - 20
+      text: api.pronoun
+      placeholderText: qsTr('Pronoun')
+      inputMethodHints: Qt.ImhNoPredictiveText
+      font.pixelSize: 14
+      onEditingFinished: {
+        api.pronoun = text
+        description.forceActiveFocus()
+        visible = false
+      }
+    }
+  }
+
   Text {
     id: description
     x: 10
-    y: 20
+    y: 35
     width: parent.width - 20
-    height: 60
+    height: 50
     font.pixelSize: 18
     fontSizeMode: Text.Fit
     wrapMode: Text.Wrap
@@ -55,11 +96,12 @@ Page {
   Row {
     id: row
     anchors.centerIn: parent
+    visible: !pronounSelector.visible
     Repeater {
       id: letters
       model: api.values
       delegate: Column {
-        spacing: 50
+        spacing: 30
         id: column
         property string key: model.key
         property string letter: model.letter
@@ -67,7 +109,7 @@ Page {
         property int circled: model.circled
         property int number: index
         Item {
-          height: 30
+          height: 20
           width: parent.width
         }
         Item {
@@ -119,6 +161,52 @@ Page {
       }
     }
   }
+
+  Item {
+    id: pronounSelector
+    anchors.top: pronounBlock.bottom
+    width: parent.width
+    height: pronounFlow.height + 20
+    visible: pronounInput.visible && api.pronouns.length > 0
+    Rectangle {
+      anchors.fill: parent
+      color: palette.base
+    }
+    Flow {
+      id: pronounFlow
+      width: parent.width - 10
+      x: 5
+      y: 10
+      spacing: 10
+      Repeater {
+        model: api.pronouns
+        delegate: Item {
+          height: 25
+          width: pronounSelectorText.width + 10
+          Rectangle {
+            anchors.fill: parent
+            radius: 3
+            color: palette.alternateBase
+          }
+          Text {
+            font.pixelSize: 15
+            id: pronounSelectorText
+            text: modelData
+            anchors.centerIn: parent
+          }
+          MouseArea {
+            anchors.fill: parent
+            onClicked: {
+              api.pronoun = modelData
+              pronounInput.visible = false
+              description.forceActiveFocus()
+            }
+          }
+        }
+      }
+    }
+  }
+
   footer: Item {
     height: 60
     Rectangle {
