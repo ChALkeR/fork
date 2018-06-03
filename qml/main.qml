@@ -5,7 +5,7 @@ ApplicationWindow {
   id: window
   visible: true
   width: 320
-  height: 640
+  height: 568 - 20
   visibility: api.isTv && api.haveApi
                 ? ApplicationWindow.FullScreen
                 : ApplicationWindow.AutomaticVisibility
