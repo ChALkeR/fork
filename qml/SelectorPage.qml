@@ -44,7 +44,7 @@ Page {
       width: parent.width - 20
       font.pixelSize: 18
       anchors.centerIn: parent
-      placeholderText: "Имя"
+      placeholderText: qsTr("Name")
       inputMethodHints: Qt.ImhNoPredictiveText
       onTextChanged: api.name = text
       onEditingFinished: row.forceActiveFocus()
@@ -160,7 +160,7 @@ Page {
     Button {
       height: 50
       anchors.centerIn: parent
-      text: "Вернуться"
+      text: qsTr("Go back")
       onClicked: swipeView.currentIndex = 1
     }
   }

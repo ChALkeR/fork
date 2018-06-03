@@ -20,6 +20,27 @@
     </message>
 </context>
 <context>
+    <name>MainView</name>
+    <message>
+        <location filename="../qml/MainView.qml" line="99"/>
+        <source>Edit</source>
+        <translation>Редактировать</translation>
+    </message>
+</context>
+<context>
+    <name>SelectorPage</name>
+    <message>
+        <location filename="../qml/SelectorPage.qml" line="47"/>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <location filename="../qml/SelectorPage.qml" line="163"/>
+        <source>Go back</source>
+        <translation>Вернуться</translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
         <location filename="../qml/main.qml" line="12"/>

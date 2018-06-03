@@ -96,7 +96,7 @@ SwipeView {
       Button {
         height: 50
         anchors.centerIn: parent
-        text: "Редактировать"
+        text: qsTr("Edit")
         onClicked: swipeView.currentIndex = 0
       }
     }
