@@ -4,3 +4,4 @@
 *.pro.user
 *.qmlproject.user
 ios/NearbyMessages-*
+*.qm

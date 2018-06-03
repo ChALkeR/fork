@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QTranslator>
 #include "native.h"
 
 int main(int argc, char *argv[])
@@ -11,6 +12,10 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+
+    QTranslator translator;
+    translator.load(QLocale::system().name(), ":/languages/");
+    app.installTranslator(&translator);
 
     QQmlApplicationEngine engine;
 

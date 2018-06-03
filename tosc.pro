@@ -10,7 +10,12 @@ SOURCES += \
 HEADERS += \
     native.h
 
-RESOURCES += qml/qml.qrc
+RESOURCES += \
+    qml/qml.qrc \
+    languages/languages.qrc
+
+TRANSLATIONS += \
+    languages/ru_RU.ts
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 android {

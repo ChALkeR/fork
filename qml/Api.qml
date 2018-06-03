@@ -17,10 +17,10 @@ Item {
   property bool isTv: window.width > window.height // TODO: detect touch points instead
   property int addHop: isTv ? 0 : 1 // TV doesn't add hops, just relays messages
   onNameChanged: build()
-  property string tvHeader: 'Сегодня пришли:'
+  property string tvHeader: qsTr("Seen recently:")
 
   property string keys: 'tosc'
-  property string letters: 'ФОРК'
+  property string letters: qsTr("TOSC")
 
   property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
 

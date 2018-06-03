@@ -9,7 +9,7 @@ ApplicationWindow {
   visibility: api.isTv && api.haveApi
                 ? ApplicationWindow.FullScreen
                 : ApplicationWindow.AutomaticVisibility
-  title: qsTr("Кочерга.ФОРК")
+  title: qsTr("TOSC")
 
   Api {
     id: api
