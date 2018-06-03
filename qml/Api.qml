@@ -133,7 +133,7 @@ Item {
     }
   }
   Timer {
-    running: typeof Native !== 'undefined'
+    running: api.haveApi
     repeat: true
     interval: 60 * 1000
     onTriggered: {
