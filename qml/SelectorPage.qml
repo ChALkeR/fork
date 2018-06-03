@@ -106,7 +106,6 @@ Page {
           }
         }
         Switch {
-          id: circledSwitch
           checked: model.circled
           property bool active: false
           onCheckedChanged: {
@@ -115,7 +114,7 @@ Page {
             description.show(model.key, model.value, model.circled)
             forceActiveFocus()
           }
-          Component.onCompleted: { active = true }
+          Component.onCompleted: active = true
         }
       }
     }
