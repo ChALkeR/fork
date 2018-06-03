@@ -98,6 +98,10 @@ Page {
         property int circled: model.circled
         property int number: index
         Item {
+          height: 30
+          width: parent.width
+        }
+        Item {
           height: tumbler.height
           width: parent.width
           Rectangle {
