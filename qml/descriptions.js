@@ -14,7 +14,7 @@ var descriptions = {
        'Please ask me personal questions!']
   ],
   s: [['Do not talk to me about anything',
-       'Do not speak at me. I am not going to talk to anyone, and that is important for me.'],
+       'Do not speak at me. I am not going to talk to anyone, and that is important to me.'],
       ['Ask me if I am ready to chat.',
        'I want to chat, but not with everyone — ask first.'],
       ['Ready to chat',
@@ -24,7 +24,7 @@ var descriptions = {
        'Keep your opinion to yourself! I am hurt when others judge me, and that is important.'],
       ['Before providing feedback, ask me if I am ready for it.',
        'I want to receive feedback, but not from everyone — ask first.'],
-      ['I am always ready for your input, be it critics or praise.',
+      ['I am always ready for your input, be it criticism or praise.',
        'Following Crocker\'s rules']
   ]
 }
