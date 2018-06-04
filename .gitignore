@@ -3,5 +3,5 @@
 *.jsc
 *.pro.user
 *.qmlproject.user
-ios/NearbyMessages-*
+ios/cocoapods/
 *.qm
