@@ -10,6 +10,7 @@
         <file>TvView.qml</file>
         <file>Badge.qml</file>
         <file>descriptions.js</file>
+        <file>MenuButton.qml</file>
     </qresource>
     <qresource lang="ru" prefix="/">
         <file alias="descriptions.js">descriptions.ru.js</file>
