@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QTranslator translator;
+    //QLocale::setDefault(QLocale::English);
     translator.load(QLocale::system().name(), ":/languages/");
     app.installTranslator(&translator);
 
