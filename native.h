@@ -44,6 +44,7 @@ signals:
 
 public slots:
     void apiConnect();
+    void nearbyDisconnect();
     void nearbySubscribe();
     int publishMessage(const QString &message, const QString &type = "");
     void unpublishMessage(int id);

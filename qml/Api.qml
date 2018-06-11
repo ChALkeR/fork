@@ -22,6 +22,7 @@ Item {
   onNameChanged: build()
   property string altPrefix: qsTr("Guest")
   property string tvHeader: qsTr("Seen recently:")
+  property bool enabled: isTv
 
   property string keys: 'tosc'
   property string letters: qsTr("TOSC")
@@ -90,6 +91,7 @@ Item {
     property alias message: api.message
     property alias messagePeople: api.messagePeople
     property alias tvHeader: api.tvHeader
+    property alias enabled: api.enabled
   }
 
   function build() {
@@ -129,7 +131,7 @@ Item {
     }
   }
   Timer {
-    running: api.haveApi
+    running: api.haveApi && api.enabled
     repeat: true
     interval: 60 * 1000
     onTriggered: {
@@ -252,14 +254,16 @@ Item {
     }
   }
 
+  onEnabledChanged: Native.nearbyDisconnect();
+
   Timer {
     interval: 100
-    running: haveApi && Native.apiStatus === 0
+    running: haveApi && api.enabled && Native.apiStatus === 0
     onTriggered: Native.apiConnect()
   }
   Timer {
     interval: 100
-    running: haveApi && Native.nearbySubscriptionStatus <= 0 && Native.apiStatus == 2
+    running: haveApi && api.enabled && Native.nearbySubscriptionStatus <= 0 && Native.apiStatus == 2
     onTriggered: Native.nearbySubscribe()
   }
 }

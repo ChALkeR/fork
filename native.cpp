@@ -109,6 +109,14 @@ void Native::apiConnect() {
 #endif
 }
 
+void Native::nearbyDisconnect() {
+#ifdef Q_OS_ANDROID
+    QAndroidJniObject::callStaticMethod<void>(
+        "org/oserv/qtandroid/MainActivity", "nearbyDisconnect", "()V"
+    );
+#endif
+}
+
 void Native::nearbySubscribe() {
 #ifdef Q_OS_ANDROID
     QAndroidJniObject::callStaticMethod<void>(
