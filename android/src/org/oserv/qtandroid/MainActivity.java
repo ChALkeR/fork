@@ -66,15 +66,7 @@ public class MainActivity extends QtActivity
     @Override
     public void onStop() {
         Log.d(TAG, "onStop");
-        if (mGoogleApiClient.isConnected()) {
-            // Unpublish everything
-            for (int i = 0; i < messages.size(); i++) {
-               unpublishMessage(messages.keyAt(i));
-            }
-            unsubscribe();
-            mGoogleApiClient.disconnect();
-            nativeApiStatus(0);
-        }
+        nearbyStop();
         super.onStop();
     }
 
@@ -147,6 +139,17 @@ public class MainActivity extends QtActivity
         Log.d(TAG, "unsubscribe()");
         Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
         mActivity.nativeNearbySubscription(-1, 3);
+    }
+    public static void nearbyStop() {
+      Log.d(TAG, "nearbyStop");
+      if (!mGoogleApiClient.isConnected()) return;
+      // Unpublish everything
+      for (int i = 0; i < messages.size(); i++) {
+         unpublishMessage(messages.keyAt(i));
+      }
+      unsubscribe();
+      mGoogleApiClient.disconnect();
+      mActivity.nativeApiStatus(0);
     }
 
     private static int messagesCount = 0;
