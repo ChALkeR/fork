@@ -20,14 +20,20 @@ SwipeView {
         width: parent.width - 10
         anchors.centerIn: parent
         spacing: 3
-        Text {
-          text: api.name || api.altName
-          font.pixelSize: 18
-          anchors.verticalCenter: parent.verticalCenter
-          verticalAlignment: Text.AlignVCenter
+        Item {
+          height: parent.height
           width: parent.width - (24 + 3) * 4
-          fontSizeMode: Text.Fit
-          elide: Text.ElideRight
+          Text {
+            text: (api.name || api.altName) + (api.pronoun ? '<br><font size="2" color="#777">(' + api.pronoun + ')</font>' : '')
+            font.pixelSize: 18
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
+            wrapMode: Text.Wrap
+            width: parent.width * 1.5
+            height: parent.height
+            scale: Math.min(1, (parent.width - 3) / paintedWidth)
+            transformOrigin: Item.Left
+          }
         }
         Repeater {
           model: api.values
@@ -67,13 +73,20 @@ SwipeView {
           width: parent.width - 10
           anchors.centerIn: parent
           spacing: 3
-          Text {
-            text: model.name || model.altName
-            font.pixelSize: 18
-            verticalAlignment: Text.AlignVCenter
+          Item {
+            height: parent.height
             Layout.fillWidth: true
-            fontSizeMode: Text.Fit
-            elide: Text.ElideRight
+            Text {
+              text: (model.name || model.altName) + (model.pronoun ? ' <font size="2" color="#777">(' + model.pronoun + ')</font>' : '')
+              font.pixelSize: 18
+              verticalAlignment: Text.AlignVCenter
+              elide: Text.ElideRight
+              wrapMode: Text.Wrap
+              width: parent.width * 1.5
+              height: parent.height
+              scale: Math.min(1, (parent.width - 3) / paintedWidth)
+              transformOrigin: Item.Left
+            }
           }
           Repeater {
             model: letters
