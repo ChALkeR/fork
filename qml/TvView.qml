@@ -82,4 +82,6 @@ Page {
       }
     }
   }
+
+  StatusOverlay {}
 }

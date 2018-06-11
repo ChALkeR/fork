@@ -23,6 +23,4 @@ ApplicationWindow {
   TvView {
     visible: api.isTv
   }
-
-  StatusOverlay { }
 }

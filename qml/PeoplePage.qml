@@ -93,34 +93,9 @@ Page {
       }
     }
   }
-  Item {
-    anchors.fill: parent
-    opacity: api.enabled ? 0 : 1
-    Behavior on opacity {
-      NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
-    }
-    Rectangle {
-      anchors.fill: parent
-      color: palette.alternateBase
-    }
-    Column {
-      anchors.centerIn: parent
-      width: parent.width * 0.8
-      spacing: 20
-      Text {
-        width: parent.width
-        wrapMode: Text.Wrap
-        horizontalAlignment: Text.AlignHCenter
-        text: qsTr("Enable TOSC to see statuses nearby.")
-        font.pixelSize: 18
-      }
-      Button {
-        text: qsTr("Enable")
-        anchors.horizontalCenter: parent.horizontalCenter
-        onClicked: api.enabled = true
-      }
-    }
-  }
+
+  StatusOverlay {}
+
   footer: Item {
     height: 60
     Rectangle {
