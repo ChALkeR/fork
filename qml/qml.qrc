@@ -10,6 +10,7 @@
         <file>TvView.qml</file>
         <file>Badge.qml</file>
         <file>descriptions.js</file>
+        <file>SettingsPage.qml</file>
         <file>MenuButton.qml</file>
         <file>PeoplePage.qml</file>
     </qresource>

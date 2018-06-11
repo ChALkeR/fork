@@ -8,4 +8,5 @@ SwipeView {
 
   SelectorPage {}
   PeoplePage {}
+  SettingsPage {}
 }

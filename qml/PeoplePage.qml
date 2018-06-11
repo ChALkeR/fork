@@ -116,5 +116,13 @@ Page {
       text: qsTr("Edit")
       onClicked: swipeView.currentIndex = 0
     }
+    MenuButton {
+      height: 50
+      width: height
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: parent.right
+      anchors.rightMargin: 10
+      onClicked: swipeView.currentIndex = 2
+    }
   }
 }
