@@ -63,10 +63,6 @@ Item {
     publishTimer.restart();
     publishPeopleTimer.restart();
 
-    if (haveApi) {
-      Native.apiConnect();
-    }
-
     // UI demo
     if (!haveApi && people.count === 0) {
       for (var j = 0; j < 10; j++) {
@@ -123,7 +119,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
-      if (Native.apiStatus !== 1) return;
+      if (Native.apiStatus !== 2) return;
       if (isTv) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", message, "fork.self");
@@ -216,7 +212,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
-      if (Native.apiStatus !== 1) return;
+      if (Native.apiStatus !== 2) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", messagePeople, "fork.others");
       var id = Native.publishMessage(messagePeople, "fork.others");
@@ -250,7 +246,7 @@ Item {
     onNearbyOwnMessage: console.log("NearbyOwnMessage:", status, id, message, type)
     onApiStatusChanged: {
       console.log('apiStatus', Native.apiStatus);
-      if (Native.apiStatus <= 0) return;
+      if (Native.apiStatus !== 2) return;
       publishTimer.restart();
       publishPeopleTimer.restart();
     }
@@ -258,7 +254,12 @@ Item {
 
   Timer {
     interval: 100
-    running: Native.nearbySubscriptionStatus <= 0 && Native.apiStatus > 0
+    running: haveApi && Native.apiStatus === 0
+    onTriggered: Native.apiConnect()
+  }
+  Timer {
+    interval: 100
+    running: haveApi && Native.nearbySubscriptionStatus <= 0 && Native.apiStatus == 2
     onTriggered: Native.nearbySubscribe()
   }
 }

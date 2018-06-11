@@ -41,7 +41,6 @@ public class MainActivity extends QtActivity
     private static GoogleApiClient mGoogleApiClient;
     private static MessageListener mMessageListener;
 
-    private static boolean connectCalled = false;
     private static final SparseArray<Message> messages = new SparseArray<Message>();
 
     public MainActivity() {
@@ -60,13 +59,12 @@ public class MainActivity extends QtActivity
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
-        if (connectCalled) connect();
     }
 
     @Override
     public void onStop() {
         Log.d(TAG, "onStop");
-        nearbyStop();
+        nearbyDisconnect();
         super.onStop();
     }
 
@@ -140,8 +138,9 @@ public class MainActivity extends QtActivity
         Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
         mActivity.nativeNearbySubscription(-1, 3);
     }
-    public static void nearbyStop() {
-      Log.d(TAG, "nearbyStop");
+
+    public static void nearbyDisconnect() {
+      Log.d(TAG, "nearbyDisconnect");
       if (!mGoogleApiClient.isConnected()) return;
       // Unpublish everything
       for (int i = 0; i < messages.size(); i++) {
@@ -213,14 +212,14 @@ public class MainActivity extends QtActivity
     private static boolean NearbyPermissionDialogOpen = false;
     public static void connect() {
         if (mActivity.mGoogleApiClient.isConnected()) return;
-        connectCalled = true;
         Log.d(TAG, ".connect()");
+        mActivity.nativeApiStatus(1);
         mActivity.mGoogleApiClient.connect();
     }
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "GoogleApiClient connection connected");
-        nativeApiStatus(1);
+        nativeApiStatus(2);
     }
     @Override
     public void onConnectionSuspended(int i) {
