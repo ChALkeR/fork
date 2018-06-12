@@ -261,7 +261,7 @@ Item {
   onEnabledChanged: Native.nearbyDisconnect();
 
   function nearbyConnect() {
-    Native.nearbyConnect(3)
+    Native.nearbyConnect(1)
   }
   Timer {
     interval: 100
