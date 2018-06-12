@@ -24,15 +24,18 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeApplicationSt
     Native::instance()->setApplicationStatus(status);
 }
 
-JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyStatus(JNIEnv *env, jobject obj, jint status)
+JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyStatus(JNIEnv *env, jobject obj, jint status, jint mode)
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
     if (Native::instance() == NULL) {
         Native::s_nearbyStatus = status;
+        if (mode != -1) {
+            Native::s_nearbyMode = mode;
+        }
         return;
     }
-    Native::instance()->setNearbyStatus(status);
+    Native::instance()->setNearbyStatusMode(status, mode);
 }
 
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbySubscription(JNIEnv *env, jobject obj, jint status, jint mode)
@@ -68,6 +71,7 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyOwnMess
 Native* Native::m_instance = NULL;
 int Native::s_applicationStatus = 1;
 int Native::s_nearbyStatus = 0;
+int Native::s_nearbyMode = 0;
 int Native::s_nearbySubscriptionStatus = 0;
 int Native::s_nearbySubscriptionMode = 0;
 
@@ -89,16 +93,20 @@ void Native::setApplicationStatus(int applicationStatus) {
     if (s_applicationStatus == applicationStatus) return;
     s_applicationStatus = applicationStatus;
     emit applicationStatusChanged();
-    if (s_applicationStatus == 0 && s_nearbyStatus > 0) {
-        // Suspend Nearby activity when app is stopped
-        // TODO: preserve in BLE-only mode?
+    if (s_applicationStatus == 0 && s_nearbyStatus > 0 && s_nearbyMode == 3) {
+        // Suspend Nearby activity when app is stopped in full Nearby mode
         nearbyDisconnect();
     }
 }
 
-void Native::setNearbyStatus(int nearbyStatus) {
-    if (s_nearbyStatus == nearbyStatus) return;
-    s_nearbyStatus = nearbyStatus;
+void Native::setNearbyStatusMode(int status, int mode) {
+    if (mode == -1) mode = s_nearbyMode;
+    if (s_nearbyStatus == status) return;
+    s_nearbyStatus = status;
+    if (s_nearbyMode != mode) {
+        s_nearbyMode = mode;
+        emit nearbyModeChanged();
+    }
     emit nearbyStatusChanged();
 }
 void Native::setNearbySubscriptionStatusMode(int status, int mode) {
@@ -114,6 +122,9 @@ void Native::setNearbySubscriptionStatusMode(int status, int mode) {
 
 int Native::nearbyStatus() const {
     return s_nearbyStatus;
+}
+int Native::nearbyMode() const {
+    return s_nearbyMode;
 }
 int Native::nearbySubscriptionStatus() const {
     return s_nearbySubscriptionStatus;
@@ -132,10 +143,11 @@ void Native::notify(QString title, QString text) {
 #endif
 }
 
-void Native::nearbyConnect() {
+void Native::nearbyConnect(int mode) {
 #ifdef Q_OS_ANDROID
     QAndroidJniObject::callStaticMethod<void>(
-        "org/oserv/qtandroid/MainActivity", "nearbyConnect", "()V"
+        "org/oserv/qtandroid/MainActivity", "nearbyConnect", "(I)V",
+        mode
     );
 #endif
 }
@@ -149,6 +161,8 @@ void Native::nearbyDisconnect() {
 }
 
 void Native::nearbySubscribe(int mode) {
+    if (mode <= 0) mode = s_nearbySubscriptionMode;
+    if (mode <= 0) mode = s_nearbyMode;
 #ifdef Q_OS_ANDROID
     QAndroidJniObject::callStaticMethod<void>(
         "org/oserv/qtandroid/MainActivity", "subscribe", "(I)V",
@@ -160,9 +174,10 @@ void Native::nearbySubscribe(int mode) {
 int Native::publishMessage(const QString &message, const QString &type) {
 #ifdef Q_OS_ANDROID
     jint result = QAndroidJniObject::callStaticMethod<jint>(
-        "org/oserv/qtandroid/MainActivity", "publishMessage", "(Ljava/lang/String;Ljava/lang/String;)I",
+        "org/oserv/qtandroid/MainActivity", "publishMessage", "(Ljava/lang/String;Ljava/lang/String;I)I",
         QAndroidJniObject::fromString(message).object<jstring>(),
-        QAndroidJniObject::fromString(type).object<jstring>()
+        QAndroidJniObject::fromString(type).object<jstring>(),
+        s_nearbyMode
     );
     return result;
 #else

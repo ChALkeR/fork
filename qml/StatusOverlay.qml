@@ -55,7 +55,7 @@ Item {
         if (!api.enabled) {
           api.enabled = true
         } else if (api.nearbyStatus === -2) {
-          Native.nearbyConnect()
+          api.nearbyConnect()
         }
       }
     }

@@ -260,14 +260,17 @@ Item {
 
   onEnabledChanged: Native.nearbyDisconnect();
 
+  function nearbyConnect() {
+    Native.nearbyConnect(3)
+  }
   Timer {
     interval: 100
     running: haveApi && api.enabled && Native.nearbyStatus === 0
-    onTriggered: Native.nearbyConnect()
+    onTriggered: api.nearbyConnect()
   }
   Timer {
     interval: 100
     running: haveApi && api.enabled && Native.nearbySubscriptionStatus <= 0 && Native.nearbyStatus == 2
-    onTriggered: Native.nearbySubscribe(3)
+    onTriggered: Native.nearbySubscribe()
   }
 }
