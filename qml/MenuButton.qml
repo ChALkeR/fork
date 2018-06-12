@@ -3,8 +3,9 @@ import QtQuick.Controls 2.0
 
 Button {
   height: 50
-  width: height
+  width: height - 10
   text: ""
+  flat: true
   Rectangle {
     id: dot
     width: 3

@@ -118,7 +118,6 @@ Page {
     }
     MenuButton {
       height: 50
-      width: height
       anchors.verticalCenter: parent.verticalCenter
       anchors.right: parent.right
       anchors.rightMargin: 10
