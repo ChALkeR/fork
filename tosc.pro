@@ -1,6 +1,8 @@
 QT += quick
 CONFIG += c++11
 
+VERSION = 0.1.0
+
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
