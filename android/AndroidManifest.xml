@@ -47,7 +47,7 @@
             <!-- auto screen scale factor -->
         </activity>
 
-        <meta-data android:name="com.google.android.nearby.messages.API_KEY" android:value="NEARBY_API_KEY"/>
+        <meta-data android:name="com.google.android.nearby.messages.API_KEY" android:value="@string/nearby_key"/>
 
     </application>
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="24"/>
