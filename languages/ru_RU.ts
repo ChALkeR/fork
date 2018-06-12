@@ -14,20 +14,20 @@
         <translation>Сегодня пришли:</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="27"/>
+        <location filename="../qml/Api.qml" line="30"/>
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="74"/>
+        <location filename="../qml/Api.qml" line="73"/>
         <source>Example</source>
         <translation>Пример</translation>
     </message>
 </context>
 <context>
-    <name>MainView</name>
+    <name>PeoplePage</name>
     <message>
-        <location filename="../qml/MainView.qml" line="99"/>
+        <location filename="../qml/PeoplePage.qml" line="116"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -51,9 +51,72 @@
     </message>
 </context>
 <context>
+    <name>SettingsPage</name>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="13"/>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="30"/>
+        <source>Enable</source>
+        <translation>Включить</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="47"/>
+        <source>Not yet implemented:</source>
+        <translation>Пока не реализовано:</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="56"/>
+        <source>Auto-disable outside</source>
+        <translation>Отключать вне радиуса</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <source>50 meters</source>
+        <translation>50 метров</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <source>100 meters</source>
+        <translation>100 метров</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <source>200 meters</source>
+        <translation>200 метров</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <source>Never</source>
+        <translation>Никогда</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="71"/>
+        <source>Notify on auto-disabling</source>
+        <translation>Оповещать при авто-отключении</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="85"/>
+        <source>Background mode</source>
+        <translation>Фоновый режим</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="106"/>
+        <source>Go back</source>
+        <translation>Вернуться</translation>
+    </message>
+</context>
+<context>
     <name>StatusOverlay</name>
     <message>
-        <location filename="../qml/StatusOverlay.qml" line="35"/>
+        <location filename="../qml/StatusOverlay.qml" line="43"/>
+        <source>Enable TOSC to see statuses nearby.</source>
+        <translation>Включите ФОРК, чтобы увидеть статусы рядом.</translation>
+    </message>
+    <message>
+        <location filename="../qml/StatusOverlay.qml" line="46"/>
         <source>Enable Nearby Messages permission for this app to work.
 
 It is required to synchronize statuses with nearby devices.</source>
@@ -62,7 +125,12 @@ It is required to synchronize statuses with nearby devices.</source>
 Оно необходимо для синхронизации статуса с устройствами поблизости.</translation>
     </message>
     <message>
-        <location filename="../qml/StatusOverlay.qml" line="36"/>
+        <location filename="../qml/StatusOverlay.qml" line="51"/>
+        <source>Enable</source>
+        <translation>Включить</translation>
+    </message>
+    <message>
+        <location filename="../qml/StatusOverlay.qml" line="45"/>
         <source>Initializing Nearby Messages...</source>
         <translation>Инициализация Nearby Messages...</translation>
     </message>
@@ -70,7 +138,7 @@ It is required to synchronize statuses with nearby devices.</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="12"/>
+        <location filename="../qml/main.qml" line="13"/>
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>
