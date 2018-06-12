@@ -143,11 +143,14 @@ void Native::notify(QString title, QString text) {
 #endif
 }
 
-void Native::nearbyConnect(int mode) {
+// `mode` is the current mode, `bleOnly` is the requested permissions
+void Native::nearbyConnect(int mode, bool bleOnly) {
+    if (mode == 3) bleOnly = false;
 #ifdef Q_OS_ANDROID
     QAndroidJniObject::callStaticMethod<void>(
-        "org/oserv/qtandroid/MainActivity", "nearbyConnect", "(I)V",
-        mode
+        "org/oserv/qtandroid/MainActivity", "nearbyConnect", "(II)V",
+        mode,
+        bleOnly ? 1 : 0
     );
 #endif
 }

@@ -2,6 +2,7 @@ package org.oserv.qtandroid;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
 
+//import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -21,6 +22,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
+import com.google.android.gms.nearby.messages.MessagesOptions;
+import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.PublishCallback;
 import com.google.android.gms.nearby.messages.PublishOptions;
 import com.google.android.gms.nearby.messages.Strategy;
@@ -51,7 +54,6 @@ public class MainActivity extends QtActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        buildGoogleApiClient();
         buildMessageListener();
     }
 
@@ -77,14 +79,16 @@ public class MainActivity extends QtActivity
         return new String(message.getContent()).trim();
     }
 
-    private void buildGoogleApiClient() {
+    private void buildGoogleApiClient(boolean bleOnly) {
         if (mNearbyClient != null) return;
         Log.d(TAG, "buildGoogleApiClient");
         mNearbyClient = new GoogleApiClient.Builder(this)
-            .addApi(Nearby.MESSAGES_API)
-            .addConnectionCallbacks(this)
-            .addOnConnectionFailedListener(this)
-            .build();
+          .addApi(Nearby.MESSAGES_API, new MessagesOptions.Builder()
+              .setPermissions(bleOnly ? NearbyPermissions.BLE : NearbyPermissions.DEFAULT)
+              .build())
+          .addConnectionCallbacks(this)
+          .addOnConnectionFailedListener(this)
+          .build();
     }
     private void buildMessageListener() {
         Log.d(TAG, "buildMessageListener");
@@ -198,7 +202,8 @@ public class MainActivity extends QtActivity
     }
 
     private static boolean NearbyPermissionDialogOpen = false;
-    public static void nearbyConnect(int mode) {
+    public static void nearbyConnect(int mode, int bleOnly) {
+        if (mActivity.mNearbyClient == null) mActivity.buildGoogleApiClient(bleOnly == 1);
         if (mActivity.mNearbyClient.isConnected()) return;
         Log.d(TAG, ".nearbyConnect()");
         mActivity.nativeNearbyStatus(1, mode);
@@ -206,7 +211,7 @@ public class MainActivity extends QtActivity
     }
     public static void nearbyDisconnect() {
       Log.d(TAG, "nearbyDisconnect");
-      if (!mNearbyClient.isConnected()) return;
+      if (mActivity.mNearbyClient == null || !mNearbyClient.isConnected()) return;
       // Unpublish everything
       for (int i = 0; i < messages.size(); i++) {
          unpublishMessage(messages.keyAt(i));
