@@ -55,16 +55,18 @@ public class MainActivity extends QtActivity
         buildMessageListener();
     }
 
+    private static boolean stopCalled = false;
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
+        if (stopCalled) nativeApplicationStatus(1);
     }
-
     @Override
     public void onStop() {
         Log.d(TAG, "onStop");
-        nearbyDisconnect();
+        stopCalled = true;
+        nativeApplicationStatus(0);
         super.onStop();
     }
 
@@ -277,6 +279,7 @@ public class MainActivity extends QtActivity
     }
 
     private native void nativePing(int type);
+    private native void nativeApplicationStatus(int status);
     private native void nativeNearbyStatus(int status);
     private native void nativeNearbySubscription(int status, int mode);
     private native void nativeNearbyOwnMessage(int status, int id, String message, String type);

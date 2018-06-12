@@ -12,6 +12,18 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativePing(JNIEnv *
     Native::instance()->ping(value);
 }
 
+JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeApplicationStatus(JNIEnv *env, jobject obj, jint status)
+{
+
+    Q_UNUSED(env)
+    Q_UNUSED(obj)
+    if (Native::instance() == NULL) {
+        Native::s_applicationStatus = status;
+        return;
+    }
+    Native::instance()->setApplicationStatus(status);
+}
+
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyStatus(JNIEnv *env, jobject obj, jint status)
 {
     Q_UNUSED(env)
@@ -54,6 +66,7 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyOwnMess
 #endif
 
 Native* Native::m_instance = NULL;
+int Native::s_applicationStatus = 1;
 int Native::s_nearbyStatus = 0;
 int Native::s_nearbySubscriptionStatus = 0;
 int Native::s_nearbySubscriptionMode = 0;
@@ -66,6 +79,21 @@ Native::~Native() {
 }
 Native* Native::instance() {
     return m_instance;
+}
+
+int Native::applicationStatus() const {
+    return s_applicationStatus;
+}
+
+void Native::setApplicationStatus(int applicationStatus) {
+    if (s_applicationStatus == applicationStatus) return;
+    s_applicationStatus = applicationStatus;
+    emit applicationStatusChanged();
+    if (s_applicationStatus == 0 && s_nearbyStatus > 0) {
+        // Suspend Nearby activity when app is stopped
+        // TODO: preserve in BLE-only mode?
+        nearbyDisconnect();
+    }
 }
 
 void Native::setNearbyStatus(int nearbyStatus) {
