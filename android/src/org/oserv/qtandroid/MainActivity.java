@@ -38,7 +38,7 @@ public class MainActivity extends QtActivity
     private static MainActivity mActivity;
     private static NotificationManager mNotificationManager;
     private static Notification.Builder mBuilder;
-    private static GoogleApiClient mGoogleApiClient;
+    private static GoogleApiClient mNearbyClient;
     private static MessageListener mMessageListener;
 
     private static final SparseArray<Message> messages = new SparseArray<Message>();
@@ -76,9 +76,9 @@ public class MainActivity extends QtActivity
     }
 
     private void buildGoogleApiClient() {
-        if (mGoogleApiClient != null) return;
+        if (mNearbyClient != null) return;
         Log.d(TAG, "buildGoogleApiClient");
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        mNearbyClient = new GoogleApiClient.Builder(this)
             .addApi(Nearby.MESSAGES_API)
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
@@ -119,7 +119,7 @@ public class MainActivity extends QtActivity
             })
             .build();
         Log.d(TAG, "subscribe()");
-        Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options)
+        Nearby.Messages.subscribe(mNearbyClient, mMessageListener, options)
             .setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -135,7 +135,7 @@ public class MainActivity extends QtActivity
     }
     private static void unsubscribe() {
         Log.d(TAG, "unsubscribe()");
-        Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
+        Nearby.Messages.unsubscribe(mNearbyClient, mMessageListener);
         mActivity.nativeNearbySubscription(-1, 3);
     }
 
@@ -161,7 +161,7 @@ public class MainActivity extends QtActivity
                 }
             })
             .build();
-        Nearby.Messages.publish(mGoogleApiClient, message)
+        Nearby.Messages.publish(mNearbyClient, message)
             .setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -181,7 +181,7 @@ public class MainActivity extends QtActivity
         if (messages.indexOfKey(id) < 0) return;
         Log.d(TAG, "unpublishMessage()");
         final Message message = messages.get(id);
-        Nearby.Messages.unpublish(mGoogleApiClient, message)
+        Nearby.Messages.unpublish(mNearbyClient, message)
           .setResultCallback(new ResultCallback<Status>() {
               @Override
               public void onResult(@NonNull Status status) {
@@ -199,31 +199,31 @@ public class MainActivity extends QtActivity
 
     private static boolean NearbyPermissionDialogOpen = false;
     public static void nearbyConnect() {
-        if (mActivity.mGoogleApiClient.isConnected()) return;
+        if (mActivity.mNearbyClient.isConnected()) return;
         Log.d(TAG, ".nearbyConnect()");
-        mActivity.nativeApiStatus(1);
-        mActivity.mGoogleApiClient.connect();
+        mActivity.nativeNearbyStatus(1);
+        mActivity.mNearbyClient.connect();
     }
     public static void nearbyDisconnect() {
       Log.d(TAG, "nearbyDisconnect");
-      if (!mGoogleApiClient.isConnected()) return;
+      if (!mNearbyClient.isConnected()) return;
       // Unpublish everything
       for (int i = 0; i < messages.size(); i++) {
          unpublishMessage(messages.keyAt(i));
       }
       unsubscribe();
-      mGoogleApiClient.disconnect();
-      mActivity.nativeApiStatus(0);
+      mNearbyClient.disconnect();
+      mActivity.nativeNearbyStatus(0);
     }
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "GoogleApiClient connection connected");
-        nativeApiStatus(2);
+        nativeNearbyStatus(2);
     }
     @Override
     public void onConnectionSuspended(int i) {
         Log.d(TAG, "GoogleApiClient connection supended");
-        nativeApiStatus(0);
+        nativeNearbyStatus(0);
     }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -231,11 +231,11 @@ public class MainActivity extends QtActivity
         if (NearbyPermissionDialogOpen) return;
         if (!connectionResult.hasResolution()) {
             Log.w(TAG, "GoogleApiClient connection failed");
-            nativeApiStatus(-2);
+            nativeNearbyStatus(-2);
             return;
         }
         Log.d(TAG, "GoogleApiClient connection has resolution");
-        nativeApiStatus(-1);
+        nativeNearbyStatus(-1);
         try {
             // Permission dialog
             NearbyPermissionDialogOpen = true;
@@ -243,8 +243,8 @@ public class MainActivity extends QtActivity
         } catch (IntentSender.SendIntentException e) {
             Log.w(TAG, "GoogleApiClient connection failed resolution");
             NearbyPermissionDialogOpen = false;
-            nativeApiStatus(-2);
-            mGoogleApiClient.connect();
+            nativeNearbyStatus(-2);
+            mNearbyClient.connect();
         }
     }
     @Override
@@ -253,9 +253,9 @@ public class MainActivity extends QtActivity
             NearbyPermissionDialogOpen = false;
             Log.d(TAG, "Got result from resolution request for GoogleApiClient");
             if (resultCode == RESULT_OK) {
-              mGoogleApiClient.connect();
+              mNearbyClient.connect();
             } else {
-              nativeApiStatus(-2);
+              nativeNearbyStatus(-2);
             }
         }
     }
@@ -278,7 +278,7 @@ public class MainActivity extends QtActivity
     }
 
     private native void nativePing(int type);
-    private native void nativeApiStatus(int status);
+    private native void nativeNearbyStatus(int status);
     private native void nativeNearbySubscription(int status, int mode);
     private native void nativeNearbyOwnMessage(int status, int id, String message, String type);
     private native void nativeNearbyMessage(int status, String message, String type);

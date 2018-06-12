@@ -8,7 +8,7 @@
 extern "C"
 {
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativePing(JNIEnv *env, jobject obj, jint value);
-JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeApiStatus(JNIEnv *env, jobject obj, jint status);
+JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyStatus(JNIEnv *env, jobject obj, jint status);
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbySubscription(JNIEnv *env, jobject obj, jint status, jint mode);
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyMessage(JNIEnv *env, jobject obj, jint status, jstring message, jstring type);
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyOwnMessage(JNIEnv *env, jobject obj, jint status, jint id, jstring message, jstring type);
@@ -18,7 +18,7 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyOwnMess
 class Native : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int apiStatus READ apiStatus WRITE setApiStatus NOTIFY apiStatusChanged)
+    Q_PROPERTY(int nearbyStatus READ nearbyStatus WRITE setNearbyStatus NOTIFY nearbyStatusChanged)
     Q_PROPERTY(int nearbySubscriptionStatus READ nearbySubscriptionStatus NOTIFY nearbySubscriptionStatusChanged)
     Q_PROPERTY(int nearbySubscriptionMode READ nearbySubscriptionMode NOTIFY nearbySubscriptionModeChanged)
 
@@ -28,14 +28,14 @@ public:
 
     static Native *instance();
 
-    void setApiStatus(int apiStatus);
+    void setNearbyStatus(int nearbyStatus);
     void setNearbySubscriptionStatusMode(int status, int mode);
-    int apiStatus() const;
+    int nearbyStatus() const;
     int nearbySubscriptionStatus() const;
     int nearbySubscriptionMode() const;
 
 signals:
-    void apiStatusChanged();
+    void nearbyStatusChanged();
     void nearbySubscriptionStatusChanged();
     void nearbySubscriptionModeChanged();
     void ping(int value);
@@ -53,7 +53,7 @@ public slots:
 private:
     static Native *m_instance;
 public:
-    static int s_apiStatus;
+    static int s_nearbyStatus;
     static int s_nearbySubscriptionStatus;
     static int s_nearbySubscriptionMode;
 };

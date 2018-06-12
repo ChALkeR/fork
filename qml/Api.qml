@@ -16,7 +16,7 @@ Item {
   property string altName: altPrefix + " " + token.slice(0, 12)
   property var jsonPeople: []
   property bool haveApi: typeof Native !== 'undefined'
-  property int apiStatus: Native.apiStatus
+  property int nearbyStatus: Native.nearbyStatus
   property bool isTv: window.width > window.height // TODO: detect touch points instead
   property int addHop: isTv ? 0 : 1 // TV doesn't add hops, just relays messages
   onNameChanged: build()
@@ -121,7 +121,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
-      if (Native.apiStatus !== 2) return;
+      if (Native.nearbyStatus !== 2) return;
       if (isTv) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", message, "fork.self");
@@ -214,7 +214,7 @@ Item {
     running: false
     property int messageId: -1
     onTriggered: {
-      if (Native.apiStatus !== 2) return;
+      if (Native.nearbyStatus !== 2) return;
       if (messageId >= 0) Native.unpublishMessage(messageId);
       console.log("Publishing:", messagePeople, "fork.others");
       var id = Native.publishMessage(messagePeople, "fork.others");
@@ -246,9 +246,9 @@ Item {
       processPeople();
     }
     onNearbyOwnMessage: console.log("NearbyOwnMessage:", status, id, message, type)
-    onApiStatusChanged: {
-      console.log('apiStatus', Native.apiStatus);
-      if (Native.apiStatus !== 2) return;
+    onNearbyStatusChanged: {
+      console.log('nearbyStatus', Native.nearbyStatus);
+      if (Native.nearbyStatus !== 2) return;
       publishTimer.restart();
       publishPeopleTimer.restart();
     }
@@ -258,12 +258,12 @@ Item {
 
   Timer {
     interval: 100
-    running: haveApi && api.enabled && Native.apiStatus === 0
+    running: haveApi && api.enabled && Native.nearbyStatus === 0
     onTriggered: Native.nearbyConnect()
   }
   Timer {
     interval: 100
-    running: haveApi && api.enabled && Native.nearbySubscriptionStatus <= 0 && Native.apiStatus == 2
+    running: haveApi && api.enabled && Native.nearbySubscriptionStatus <= 0 && Native.nearbyStatus == 2
     onTriggered: Native.nearbySubscribe()
   }
 }

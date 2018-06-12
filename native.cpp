@@ -12,15 +12,15 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativePing(JNIEnv *
     Native::instance()->ping(value);
 }
 
-JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeApiStatus(JNIEnv *env, jobject obj, jint status)
+JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyStatus(JNIEnv *env, jobject obj, jint status)
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
     if (Native::instance() == NULL) {
-        Native::s_apiStatus = status;
+        Native::s_nearbyStatus = status;
         return;
     }
-    Native::instance()->setApiStatus(status);
+    Native::instance()->setNearbyStatus(status);
 }
 
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbySubscription(JNIEnv *env, jobject obj, jint status, jint mode)
@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyOwnMess
 #endif
 
 Native* Native::m_instance = NULL;
-int Native::s_apiStatus = 0;
+int Native::s_nearbyStatus = 0;
 int Native::s_nearbySubscriptionStatus = 0;
 int Native::s_nearbySubscriptionMode = 0;
 
@@ -66,10 +66,10 @@ Native* Native::instance() {
     return m_instance;
 }
 
-void Native::setApiStatus(int apiStatus) {
-    if (s_apiStatus == apiStatus) return;
-    s_apiStatus = apiStatus;
-    emit apiStatusChanged();
+void Native::setNearbyStatus(int nearbyStatus) {
+    if (s_nearbyStatus == nearbyStatus) return;
+    s_nearbyStatus = nearbyStatus;
+    emit nearbyStatusChanged();
 }
 void Native::setNearbySubscriptionStatusMode(int status, int mode) {
     if (s_nearbySubscriptionStatus == status && s_nearbySubscriptionMode == mode) return;
@@ -81,8 +81,8 @@ void Native::setNearbySubscriptionStatusMode(int status, int mode) {
     emit nearbySubscriptionStatusChanged();
 }
 
-int Native::apiStatus() const {
-    return s_apiStatus;
+int Native::nearbyStatus() const {
+    return s_nearbyStatus;
 }
 int Native::nearbySubscriptionStatus() const {
     return s_nearbySubscriptionStatus;
