@@ -101,10 +101,10 @@ void Native::notify(QString title, QString text) {
 #endif
 }
 
-void Native::apiConnect() {
+void Native::nearbyConnect() {
 #ifdef Q_OS_ANDROID
     QAndroidJniObject::callStaticMethod<void>(
-        "org/oserv/qtandroid/MainActivity", "connect", "()V"
+        "org/oserv/qtandroid/MainActivity", "nearbyConnect", "()V"
     );
 #endif
 }

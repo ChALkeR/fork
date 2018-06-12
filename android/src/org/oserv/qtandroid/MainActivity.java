@@ -139,18 +139,6 @@ public class MainActivity extends QtActivity
         mActivity.nativeNearbySubscription(-1, 3);
     }
 
-    public static void nearbyDisconnect() {
-      Log.d(TAG, "nearbyDisconnect");
-      if (!mGoogleApiClient.isConnected()) return;
-      // Unpublish everything
-      for (int i = 0; i < messages.size(); i++) {
-         unpublishMessage(messages.keyAt(i));
-      }
-      unsubscribe();
-      mGoogleApiClient.disconnect();
-      mActivity.nativeApiStatus(0);
-    }
-
     private static int messagesCount = 0;
     public static int publishMessage(String messageString, String messageType) {
         final int id = messagesCount++;
@@ -210,11 +198,22 @@ public class MainActivity extends QtActivity
     }
 
     private static boolean NearbyPermissionDialogOpen = false;
-    public static void connect() {
+    public static void nearbyConnect() {
         if (mActivity.mGoogleApiClient.isConnected()) return;
-        Log.d(TAG, ".connect()");
+        Log.d(TAG, ".nearbyConnect()");
         mActivity.nativeApiStatus(1);
         mActivity.mGoogleApiClient.connect();
+    }
+    public static void nearbyDisconnect() {
+      Log.d(TAG, "nearbyDisconnect");
+      if (!mGoogleApiClient.isConnected()) return;
+      // Unpublish everything
+      for (int i = 0; i < messages.size(); i++) {
+         unpublishMessage(messages.keyAt(i));
+      }
+      unsubscribe();
+      mGoogleApiClient.disconnect();
+      mActivity.nativeApiStatus(0);
     }
     @Override
     public void onConnected(@Nullable Bundle bundle) {

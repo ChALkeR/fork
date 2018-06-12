@@ -43,7 +43,7 @@ signals:
     void nearbyOwnMessage(int status, int id, QString message, QString type);
 
 public slots:
-    void apiConnect();
+    void nearbyConnect();
     void nearbyDisconnect();
     void nearbySubscribe();
     int publishMessage(const QString &message, const QString &type = "");

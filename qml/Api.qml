@@ -259,7 +259,7 @@ Item {
   Timer {
     interval: 100
     running: haveApi && api.enabled && Native.apiStatus === 0
-    onTriggered: Native.apiConnect()
+    onTriggered: Native.nearbyConnect()
   }
   Timer {
     interval: 100
