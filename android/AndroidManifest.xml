@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <manifest package="org.oserv.tosc" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.1.0" android:versionCode="1" android:installLocation="auto">
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication"
-          android:label="Форк" android:icon="@mipmap/tosc_icon" android:roundIcon="@mipmap/tosc_icon_round">
-        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.oserv.qtandroid.MainActivity" android:label="Форк" android:screenOrientation="unspecified" android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar">
+          android:label="@string/app_name" android:icon="@mipmap/tosc_icon" android:roundIcon="@mipmap/tosc_icon_round">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.oserv.qtandroid.MainActivity" android:label="@string/app_name" android:screenOrientation="unspecified" android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
