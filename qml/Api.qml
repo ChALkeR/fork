@@ -268,6 +268,6 @@ Item {
   Timer {
     interval: 100
     running: haveApi && api.enabled && Native.nearbySubscriptionStatus <= 0 && Native.nearbyStatus == 2
-    onTriggered: Native.nearbySubscribe()
+    onTriggered: Native.nearbySubscribe(3)
   }
 }

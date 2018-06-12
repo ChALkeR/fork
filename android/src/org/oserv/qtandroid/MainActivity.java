@@ -101,20 +101,19 @@ public class MainActivity extends QtActivity
     }
 
     // Modes: 1 - Nearby BLE, 3 - Nearby full
-    private static void subscribe() {
-        // TODO: BLE_ONLY?
+    private static void subscribe(final int mode) {
         // TODO: Specify timeout?
         Strategy strategy = new Strategy.Builder()
             .setTtlSeconds(Strategy.TTL_SECONDS_INFINITE)
             .build();
         SubscribeOptions options = new SubscribeOptions.Builder()
-            .setStrategy(strategy)
+            .setStrategy(mode == 1 ? Strategy.BLE_ONLY : strategy)
             .setCallback(new SubscribeCallback() {
                 @Override
                 public void onExpired() {
                     super.onExpired();
                     Log.i(TAG, "subscription expired");
-                    mActivity.nativeNearbySubscription(-1, 3);
+                    mActivity.nativeNearbySubscription(-1, mode);
                 }
             })
             .build();
@@ -125,10 +124,10 @@ public class MainActivity extends QtActivity
                 public void onResult(@NonNull Status status) {
                     if (status.isSuccess()) {
                         Log.d(TAG, "subscribe success");
-                        mActivity.nativeNearbySubscription(1, 3);
+                        mActivity.nativeNearbySubscription(1, mode);
                     } else {
                         Log.w(TAG, "subscribe failed");
-                        mActivity.nativeNearbySubscription(-1, 3);
+                        mActivity.nativeNearbySubscription(-1, mode);
                     }
                 }
             });
@@ -136,7 +135,7 @@ public class MainActivity extends QtActivity
     private static void unsubscribe() {
         Log.d(TAG, "unsubscribe()");
         Nearby.Messages.unsubscribe(mNearbyClient, mMessageListener);
-        mActivity.nativeNearbySubscription(-1, 3);
+        mActivity.nativeNearbySubscription(-1, -1);
     }
 
     private static int messagesCount = 0;

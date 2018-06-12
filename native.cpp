@@ -29,7 +29,9 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbySubscri
     Q_UNUSED(obj)
     if (Native::instance() == NULL) {
         Native::s_nearbySubscriptionStatus = status;
-        Native::s_nearbySubscriptionMode = mode;
+        if (mode != -1) {
+            Native::s_nearbySubscriptionMode = mode;
+        }
         return;
     }
     Native::instance()->setNearbySubscriptionStatusMode(status, mode);
@@ -72,6 +74,7 @@ void Native::setNearbyStatus(int nearbyStatus) {
     emit nearbyStatusChanged();
 }
 void Native::setNearbySubscriptionStatusMode(int status, int mode) {
+    if (mode == -1) mode = s_nearbySubscriptionMode;
     if (s_nearbySubscriptionStatus == status && s_nearbySubscriptionMode == mode) return;
     s_nearbySubscriptionStatus = status;
     if (s_nearbySubscriptionMode != mode) {
@@ -117,10 +120,11 @@ void Native::nearbyDisconnect() {
 #endif
 }
 
-void Native::nearbySubscribe() {
+void Native::nearbySubscribe(int mode) {
 #ifdef Q_OS_ANDROID
     QAndroidJniObject::callStaticMethod<void>(
-        "org/oserv/qtandroid/MainActivity", "subscribe", "()V"
+        "org/oserv/qtandroid/MainActivity", "subscribe", "(I)V",
+        mode
     );
 #endif
 }

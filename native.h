@@ -45,7 +45,7 @@ signals:
 public slots:
     void nearbyConnect();
     void nearbyDisconnect();
-    void nearbySubscribe();
+    void nearbySubscribe(int mode);
     int publishMessage(const QString &message, const QString &type = "");
     void unpublishMessage(int id);
     void notify(QString title, QString text);
