@@ -49,6 +49,7 @@ Item {
     Button {
       visible: !api.enabled || api.apiStatus === -2
       text: qsTr("Enable")
+      highlighted: true
       anchors.horizontalCenter: parent.horizontalCenter
       onClicked: {
         if (!api.enabled) {
