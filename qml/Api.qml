@@ -23,6 +23,8 @@ Item {
   property string altPrefix: qsTr("Guest")
   property string tvHeader: qsTr("Seen recently:")
   property bool enabled: isTv
+  property bool backgroundMode: true
+  property bool autoDisableNotify: true
 
   property string keys: 'tosc'
   property string letters: qsTr("TOSC")
@@ -92,6 +94,8 @@ Item {
     property alias messagePeople: api.messagePeople
     property alias tvHeader: api.tvHeader
     property alias enabled: api.enabled
+    property alias backgroundMode: api.backgroundMode
+    property alias autoDisableNotify: api.autoDisableNotify
   }
 
   function build() {

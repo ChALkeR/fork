@@ -18,20 +18,79 @@ Page {
     }
   }
 
-  GridLayout {
-    columns: 2
+  Column {
     x: 10
     y: 10
     width: parent.width - 20
-    Text {
-      font.pixelSize: 20
-      text: qsTr("Enable")
-      Layout.fillWidth: true
+    spacing: 10
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Enable")
+      }
+      Switch {
+        checked: api.enabled
+        onCheckedChanged: api.enabled = checked
+        Layout.alignment: Qt.AlignRight
+      }
     }
-    Switch {
-      height: 50
-      checked: api.enabled
-      onCheckedChanged: api.enabled = checked
+    Item {
+      height: 40
+      width: parent.width
+    }
+    Item {
+      height: 40
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Not yet implemented:")
+        anchors.verticalCenter: parent.verticalCenter
+        color: palette.mid
+      }
+    }
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Auto-disable outside")
+        color: palette.mid
+      }
+      ComboBox {
+        Layout.preferredWidth: 135
+        currentIndex: 0
+        model: [ qsTr("50 meters"), qsTr("100 meters"), qsTr("200 meters"), qsTr("Never") ]
+        Layout.alignment: Qt.AlignRight
+        enabled: false
+      }
+    }
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Notify on auto-disabling")
+        color: palette.mid
+      }
+      Switch {
+        checked: api.autoDisableNotify
+        onCheckedChanged: api.autoDisableNotify = checked
+        Layout.alignment: Qt.AlignRight
+        enabled: false
+      }
+    }
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Background mode")
+        color: palette.mid
+      }
+      Switch {
+        checked: api.backgroundMode
+        onCheckedChanged: api.backgroundMode = checked
+        Layout.alignment: Qt.AlignRight
+        enabled: false
+      }
     }
   }
 
