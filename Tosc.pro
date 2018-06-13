@@ -51,7 +51,9 @@ ios {
       -framework Accelerate \
       -framework MediaPlayer \
       -framework AVFoundation \
-      -lm -lz
+      -framework CFNetwork \
+      -framework AddressBook \
+      -lm -lz -ObjC
     INCLUDEPATH += ios/cocoapods/NearbyMessages-1.1.0/Sources
     LIBS += ios/cocoapods/NearbyMessages-1.1.0/Libraries/libGNSMessages.a
 }
