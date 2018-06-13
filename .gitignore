@@ -4,5 +4,6 @@
 *.pro.user
 *.qmlproject.user
 ios/cocoapods/
+ios/iosnative.keys.h
 android/res/values/keys.xml
 *.qm
