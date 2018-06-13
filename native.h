@@ -15,6 +15,9 @@ JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyMessage
 JNIEXPORT void JNICALL Java_org_oserv_qtandroid_MainActivity_nativeNearbyOwnMessage(JNIEnv *env, jobject obj, jint status, jint id, jstring message, jstring type);
 }
 #endif
+#ifdef Q_OS_IOS
+#include "ios/iosnative.h"
+#endif
 
 class Native : public QObject
 {
