@@ -14,12 +14,12 @@
         <translation>Сегодня пришли:</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="30"/>
+        <location filename="../qml/Api.qml" line="31"/>
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="73"/>
+        <location filename="../qml/Api.qml" line="74"/>
         <source>Example</source>
         <translation>Пример</translation>
     </message>
@@ -63,47 +63,52 @@
         <translation>Включить</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="47"/>
+        <location filename="../qml/SettingsPage.qml" line="42"/>
+        <source>Monochrome mode</source>
+        <translation>Монохромный режим</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="59"/>
         <source>Not yet implemented:</source>
         <translation>Пока не реализовано:</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="56"/>
+        <location filename="../qml/SettingsPage.qml" line="68"/>
         <source>Auto-disable outside</source>
         <translation>Отключать вне радиуса</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <location filename="../qml/SettingsPage.qml" line="74"/>
         <source>50 meters</source>
         <translation>50 метров</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <location filename="../qml/SettingsPage.qml" line="74"/>
         <source>100 meters</source>
         <translation>100 метров</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <location filename="../qml/SettingsPage.qml" line="74"/>
         <source>200 meters</source>
         <translation>200 метров</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="62"/>
+        <location filename="../qml/SettingsPage.qml" line="74"/>
         <source>Never</source>
         <translation>Никогда</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="71"/>
+        <location filename="../qml/SettingsPage.qml" line="83"/>
         <source>Notify on auto-disabling</source>
         <translation>Оповещать при авто-отключении</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="85"/>
+        <location filename="../qml/SettingsPage.qml" line="97"/>
         <source>Background mode</source>
         <translation>Фоновый режим</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="106"/>
+        <location filename="../qml/SettingsPage.qml" line="118"/>
         <source>Go back</source>
         <translation>Вернуться</translation>
     </message>

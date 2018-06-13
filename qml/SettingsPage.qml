@@ -35,6 +35,18 @@ Page {
         Layout.alignment: Qt.AlignRight
       }
     }
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Monochrome mode")
+      }
+      Switch {
+        checked: api.monochrome
+        onCheckedChanged: api.monochrome = checked
+        Layout.alignment: Qt.AlignRight
+      }
+    }
     Item {
       height: 40
       width: parent.width

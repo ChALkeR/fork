@@ -5,7 +5,7 @@ Item {
   property bool circled: false
   property var colors: ["red", "blue", "green"]
   property int value: 1
-  property color color: colors[value]
+  property color color: api.monochrome ? "#000" : colors[value]
   property string letter: "?"
   Rectangle {
     anchors.fill: parent
@@ -22,7 +22,15 @@ Item {
   Text {
     anchors.centerIn: parent
     text: letter
+    opacity: api.monochrome ? 0.3 : 1
     font.pixelSize: size * 0.8
     color: parent.color
+  }
+  Text {
+    visible: api.monochrome
+    anchors.centerIn: parent
+    text: "X?_"[value]
+    font.pixelSize: size * 1.25
+    color: "#000"
   }
 }
