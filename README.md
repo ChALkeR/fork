@@ -1,4 +1,4 @@
-# Touch, Openness, Speak, Critics (+pronouns)
+# Touch, Openness, Speak, Critique (+pronouns)
 
 Communication preference system.
 
