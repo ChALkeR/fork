@@ -52,6 +52,7 @@ Page {
     model: api.people
     anchors.fill: parent
     spacing: 5
+    ScrollBar.vertical: ScrollBar { }
     header: Item {
       height: 10
     }

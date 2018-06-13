@@ -22,6 +22,7 @@ Page {
     anchors.fill: parent
     contentHeight: column.height + 20
     flickableDirection: Flickable.VerticalFlick
+    ScrollBar.vertical: ScrollBar { }
 
     Column {
       id: column
