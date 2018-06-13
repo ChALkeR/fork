@@ -14,12 +14,12 @@
         <translation>Сегодня пришли:</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="31"/>
+        <location filename="../qml/Api.qml" line="33"/>
         <source>TOSC</source>
         <translation>ФОРК</translation>
     </message>
     <message>
-        <location filename="../qml/Api.qml" line="74"/>
+        <location filename="../qml/Api.qml" line="76"/>
         <source>Example</source>
         <translation>Пример</translation>
     </message>
@@ -104,11 +104,21 @@
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="97"/>
+        <source>Notify of new people</source>
+        <translation>Оповещать о новых людях</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="111"/>
+        <source>Notify of status changes</source>
+        <translation>Оповещать о изменении статусов</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="125"/>
         <source>Background mode</source>
         <translation>Фоновый режим</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="118"/>
+        <location filename="../qml/SettingsPage.qml" line="146"/>
         <source>Go back</source>
         <translation>Вернуться</translation>
     </message>

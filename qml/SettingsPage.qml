@@ -94,6 +94,34 @@ Page {
       width: parent.width
       Text {
         font.pixelSize: 16
+        text: qsTr("Notify of new people")
+        color: palette.mid
+      }
+      Switch {
+        checked: api.newPeopleNotify
+        onCheckedChanged: api.newPeopleNotify = checked
+        Layout.alignment: Qt.AlignRight
+        enabled: false
+      }
+    }
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
+        text: qsTr("Notify of status changes")
+        color: palette.mid
+      }
+      Switch {
+        checked: api.statusChangesNotify
+        onCheckedChanged: api.statusChangesNotify = checked
+        Layout.alignment: Qt.AlignRight
+        enabled: false
+      }
+    }
+    RowLayout {
+      width: parent.width
+      Text {
+        font.pixelSize: 16
         text: qsTr("Background mode")
         color: palette.mid
       }

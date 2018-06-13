@@ -26,6 +26,8 @@ Item {
   property bool monochrome: false
   property bool backgroundMode: true
   property bool autoDisableNotify: true
+  property bool newPeopleNotify: false
+  property bool statusChangesNotify: false
 
   property string keys: 'tosc'
   property string letters: qsTr("TOSC")
@@ -98,6 +100,8 @@ Item {
     property alias monochrome: api.monochrome
     property alias backgroundMode: api.backgroundMode
     property alias autoDisableNotify: api.autoDisableNotify
+    property alias newPeopleNotify: api.newPeopleNotify
+    property alias statusChangesNotify: api.statusChangesNotify
   }
 
   function build() {
