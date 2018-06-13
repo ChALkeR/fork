@@ -18,118 +18,125 @@ Page {
     }
   }
 
-  Column {
-    x: 10
-    y: 10
-    width: parent.width - 20
-    spacing: 10
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Enable")
+  Flickable {
+    anchors.fill: parent
+    contentHeight: column.height + 20
+    flickableDirection: Flickable.VerticalFlick
+
+    Column {
+      id: column
+      x: 10
+      y: 10
+      width: parent.width - 20
+      spacing: 10
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Enable")
+        }
+        Switch {
+          checked: api.enabled
+          onCheckedChanged: api.enabled = checked
+          Layout.alignment: Qt.AlignRight
+        }
       }
-      Switch {
-        checked: api.enabled
-        onCheckedChanged: api.enabled = checked
-        Layout.alignment: Qt.AlignRight
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Monochrome mode")
+        }
+        Switch {
+          checked: api.monochrome
+          onCheckedChanged: api.monochrome = checked
+          Layout.alignment: Qt.AlignRight
+        }
       }
-    }
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Monochrome mode")
+      Item {
+        height: 40
+        width: parent.width
       }
-      Switch {
-        checked: api.monochrome
-        onCheckedChanged: api.monochrome = checked
-        Layout.alignment: Qt.AlignRight
+      Item {
+        height: 40
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Not yet implemented:")
+          anchors.verticalCenter: parent.verticalCenter
+          color: palette.mid
+        }
       }
-    }
-    Item {
-      height: 40
-      width: parent.width
-    }
-    Item {
-      height: 40
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Not yet implemented:")
-        anchors.verticalCenter: parent.verticalCenter
-        color: palette.mid
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Auto-disable outside")
+          color: palette.mid
+        }
+        ComboBox {
+          Layout.preferredWidth: 135
+          currentIndex: 0
+          model: [ qsTr("50 meters"), qsTr("100 meters"), qsTr("200 meters"), qsTr("Never") ]
+          Layout.alignment: Qt.AlignRight
+          enabled: false
+        }
       }
-    }
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Auto-disable outside")
-        color: palette.mid
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Notify on auto-disabling")
+          color: palette.mid
+        }
+        Switch {
+          checked: api.autoDisableNotify
+          onCheckedChanged: api.autoDisableNotify = checked
+          Layout.alignment: Qt.AlignRight
+          enabled: false
+        }
       }
-      ComboBox {
-        Layout.preferredWidth: 135
-        currentIndex: 0
-        model: [ qsTr("50 meters"), qsTr("100 meters"), qsTr("200 meters"), qsTr("Never") ]
-        Layout.alignment: Qt.AlignRight
-        enabled: false
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Notify of new people")
+          color: palette.mid
+        }
+        Switch {
+          checked: api.newPeopleNotify
+          onCheckedChanged: api.newPeopleNotify = checked
+          Layout.alignment: Qt.AlignRight
+          enabled: false
+        }
       }
-    }
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Notify on auto-disabling")
-        color: palette.mid
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Notify of status changes")
+          color: palette.mid
+        }
+        Switch {
+          checked: api.statusChangesNotify
+          onCheckedChanged: api.statusChangesNotify = checked
+          Layout.alignment: Qt.AlignRight
+          enabled: false
+        }
       }
-      Switch {
-        checked: api.autoDisableNotify
-        onCheckedChanged: api.autoDisableNotify = checked
-        Layout.alignment: Qt.AlignRight
-        enabled: false
-      }
-    }
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Notify of new people")
-        color: palette.mid
-      }
-      Switch {
-        checked: api.newPeopleNotify
-        onCheckedChanged: api.newPeopleNotify = checked
-        Layout.alignment: Qt.AlignRight
-        enabled: false
-      }
-    }
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Notify of status changes")
-        color: palette.mid
-      }
-      Switch {
-        checked: api.statusChangesNotify
-        onCheckedChanged: api.statusChangesNotify = checked
-        Layout.alignment: Qt.AlignRight
-        enabled: false
-      }
-    }
-    RowLayout {
-      width: parent.width
-      Text {
-        font.pixelSize: 16
-        text: qsTr("Background mode")
-        color: palette.mid
-      }
-      Switch {
-        checked: api.backgroundMode
-        onCheckedChanged: api.backgroundMode = checked
-        Layout.alignment: Qt.AlignRight
-        enabled: false
+      RowLayout {
+        width: parent.width
+        Text {
+          font.pixelSize: 16
+          text: qsTr("Background mode")
+          color: palette.mid
+        }
+        Switch {
+          checked: api.backgroundMode
+          onCheckedChanged: api.backgroundMode = checked
+          Layout.alignment: Qt.AlignRight
+          enabled: false
+        }
       }
     }
   }
