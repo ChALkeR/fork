@@ -102,11 +102,11 @@ Page {
       model: api.values
       delegate: Column {
         spacing: 30
-        id: column
+        id: block
         property string key: model.key
         property string letter: model.letter
         property int value: model.value
-        property int circled: model.circled
+        property bool circled: model.circled
         property int number: index
         Item {
           height: 20
@@ -130,9 +130,9 @@ Page {
               width: parent.width
               Letter {
                 size: 24
-                letter: column.letter
+                letter: block.letter
                 anchors.centerIn: parent
-                circled: column.circled
+                circled: block.circled
                 value: index
               }
               opacity: index === tumbler.currentIndex ? 1 : 0.25
@@ -140,11 +140,11 @@ Page {
             property bool active: false
             onCurrentIndexChanged: {
               if (!active) return
-              api.values.setProperty(column.number, "value", currentIndex)
-              description.show(column.key, column.value, column.circled)
+              api.values.setProperty(block.number, "value", currentIndex)
+              description.show(block.key, block.value, block.circled)
               forceActiveFocus()
             }
-            Component.onCompleted: { currentIndex = column.value; active = true }
+            Component.onCompleted: { currentIndex = block.value; active = true }
           }
         }
         Switch {

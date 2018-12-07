@@ -20,12 +20,12 @@ Page {
 
   Flickable {
     anchors.fill: parent
-    contentHeight: column.height + 20
+    contentHeight: settingsMain.height + 20
     flickableDirection: Flickable.VerticalFlick
     ScrollBar.vertical: ScrollBar { }
 
     Column {
-      id: column
+      id: settingsMain
       x: 10
       y: 10
       width: parent.width - 20
