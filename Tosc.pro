@@ -19,6 +19,8 @@ RESOURCES += \
 TRANSLATIONS += \
     languages/ru_RU.ts
 
+system(lrelease Tosc.pro)
+
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 android {
     QT += androidextras
