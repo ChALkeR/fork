@@ -13,6 +13,7 @@
         <file>SettingsPage.qml</file>
         <file>MenuButton.qml</file>
         <file>PeoplePage.qml</file>
+        <file>ApiNearby.qml</file>
     </qresource>
     <qresource lang="ru" prefix="/">
         <file alias="descriptions.js">descriptions.ru.js</file>

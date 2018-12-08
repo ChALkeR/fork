@@ -5,7 +5,7 @@ Item {
   id: overlay
   anchors.fill: parent
   visible: opacity > 0
-  property bool show: !api.enabled || api.haveApi && api.nearbyStatus < 2
+  property bool show: !api.enabled || api.haveApi && api.nearby.status < 2
   opacity: show ? 1 : 0
   Behavior on opacity {
     NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
@@ -13,7 +13,7 @@ Item {
   onShowChanged: {
     if (!show) {
       opacity = 0
-    } else if (api.enabled && api.nearbyStatus >= 0) {
+    } else if (api.enabled && api.nearby.status >= 0) {
       showTimer.restart();
     } else {
       opacity = 1
@@ -41,21 +41,21 @@ Item {
       text:
         !api.enabled
           ? qsTr("Enable TOSC to see statuses nearby.")
-        : api.nearbyStatus >= 0
+        : api.nearby.status >= 0
           ? qsTr("Initializing Nearby Messages...")
           : qsTr("Enable Nearby Messages permission for this app to work.\n\nIt is required to synchronize statuses with nearby devices.")
       font.pixelSize: 18
     }
     Button {
-      visible: !api.enabled || api.nearbyStatus === -2
+      visible: !api.enabled || api.nearby.status === -2
       text: qsTr("Enable")
       highlighted: true
       anchors.horizontalCenter: parent.horizontalCenter
       onClicked: {
         if (!api.enabled) {
           api.enabled = true
-        } else if (api.nearbyStatus === -2) {
-          api.nearbyConnect()
+        } else if (api.nearby.status === -2) {
+          api.nearby.connect()
         }
       }
     }

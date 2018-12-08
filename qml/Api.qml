@@ -16,7 +16,6 @@ Item {
   property string altName: altPrefix + " " + token.slice(0, 12)
   property var jsonPeople: []
   property bool haveApi: typeof Native !== 'undefined'
-  property int nearbyStatus: Native.nearbyStatus
   property bool isTv: window.width > window.height // TODO: detect touch points instead
   property int addHop: isTv ? 0 : 1 // TV doesn't add hops, just relays messages
   onNameChanged: build()
@@ -35,6 +34,17 @@ Item {
   property var pronouns: Descriptions.pronouns
 
   property var ttls: [0, 6 * 60 * 60, 60 * 60, 15 * 60, 10 * 60, 5 * 60] // 6h, 1h, 15m, 10m, 5m
+
+  property ApiNearby nearby: ApiNearby {
+    enabled: api.enabled
+    onEmit: {
+      for (var i = 0; i < people.length; i++) {
+        jsonPeople.push(people[i]);
+      }
+      processPeople();
+    }
+    onRequest: api.publish()
+  }
 
   function getLetters(msg) {
     var raw = msg.data || {};
@@ -66,8 +76,7 @@ Item {
     jsonPeople = messagePeople ? JSON.parse(messagePeople) : [];
     processPeople();
 
-    publishTimer.restart();
-    publishPeopleTimer.restart();
+    publish();
 
     // UI demo
     if (!haveApi && people.count === 0) {
@@ -129,15 +138,9 @@ Item {
     id: publishTimer
     interval: 500
     running: false
-    property int messageId: -1
     onTriggered: {
-      if (Native.nearbyStatus !== 2) return;
       if (isTv) return;
-      if (messageId >= 0) Native.unpublishMessage(messageId);
-      console.log("Publishing:", message, "fork.self");
-      var id = Native.publishMessage(message, "fork.self");
-      console.log("Publish id:", id);
-      messageId = id;
+      nearby.publish(message);
     }
   }
   Timer {
@@ -222,61 +225,13 @@ Item {
     id: publishPeopleTimer
     interval: 500
     running: false
-    property int messageId: -1
     onTriggered: {
-      if (Native.nearbyStatus !== 2) return;
-      if (messageId >= 0) Native.unpublishMessage(messageId);
-      console.log("Publishing:", messagePeople, "fork.others");
-      var id = Native.publishMessage(messagePeople, "fork.others");
-      console.log("Publish id:", id);
-      messageId = id;
+      nearby.publishPeople(messagePeople)
     }
   }
 
-  Connections {
-    target: Native
-    onPing: console.log("Ping:", value)
-    onNearbyMessage: {
-      console.log("NearbyMessage:", status, message, type)
-      var msg = JSON.parse(message);
-      switch (type) {
-      case "fork.self":
-        msg.hops = api.addHop;
-        jsonPeople.push(msg);
-        break;
-      case "fork.others":
-        msg.forEach(function(entry) {
-          entry.hops += api.addHop;
-          jsonPeople.push(entry);
-        });
-        break;
-      default:
-        return;
-      }
-      processPeople();
-    }
-    onNearbyOwnMessage: console.log("NearbyOwnMessage:", status, id, message, type)
-    onNearbyStatusChanged: {
-      console.log('nearbyStatus', Native.nearbyStatus);
-      if (Native.nearbyStatus !== 2) return;
-      publishTimer.restart();
-      publishPeopleTimer.restart();
-    }
-  }
-
-  onEnabledChanged: Native.nearbyDisconnect();
-
-  function nearbyConnect() {
-    Native.nearbyConnect(1)
-  }
-  Timer {
-    interval: 100
-    running: haveApi && api.enabled && Native.nearbyStatus === 0
-    onTriggered: api.nearbyConnect()
-  }
-  Timer {
-    interval: 100
-    running: haveApi && api.enabled && Native.nearbySubscriptionStatus <= 0 && Native.nearbyStatus == 2
-    onTriggered: Native.nearbySubscribe()
+  function publish() {
+    publishTimer.restart();
+    publishPeopleTimer.restart();
   }
 }
