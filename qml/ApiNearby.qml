@@ -58,12 +58,12 @@ Item {
       console.log("NearbyMessage:", status, message, type)
       var msg = JSON.parse(message);
       var people = [];
-      switch (type) {
-      case "fork.self":
+      switch (type.replace("fork.", "tosc.")) {
+      case "tosc.self":
         msg.hops = api.addHop;
         people.push(msg);
         break;
-      case "fork.others":
+      case "tosc.others":
         msg.forEach(function(entry) {
           entry.hops += api.addHop;
           people.push(entry);
