@@ -131,17 +131,27 @@ Item {
     var json = JSON.stringify(msg);
     if (message !== json) {
       message = json;
-      publishTimer.restart();
+      publishSelfTimer.restart();
     }
   }
 
+  function publish() {
+    publishSelfTimer.restart();
+    publishPeopleTimer.restart();
+  }
   Timer {
-    id: publishTimer
+    id: publishPeopleTimer
+    interval: 500
+    running: false
+    onTriggered: nearby.publish(messagePeople, 'others')
+  }
+  Timer {
+    id: publishSelfTimer
     interval: 500
     running: false
     onTriggered: {
-      if (isTv) return;
-      nearby.publish(message);
+      if (isTv) return; // TV does not publish self
+      nearby.publish(message, 'self');
     }
   }
   Timer {
@@ -149,8 +159,8 @@ Item {
     repeat: true
     interval: 60 * 1000
     onTriggered: {
-      processPeople() // update the list to exclude outdated
-      publishTimer.restart() // re-publish self every minute
+      processPeople() // update the list to exclude outdated, re-publishes on changes
+      publishSelfTimer.restart() // re-publish self every minute
     }
   }
 
@@ -220,19 +230,5 @@ Item {
       messagePeople = json;
       publishPeopleTimer.restart();
     }
-  }
-
-  Timer {
-    id: publishPeopleTimer
-    interval: 500
-    running: false
-    onTriggered: {
-      nearby.publishPeople(messagePeople)
-    }
-  }
-
-  function publish() {
-    publishTimer.restart();
-    publishPeopleTimer.restart();
   }
 }

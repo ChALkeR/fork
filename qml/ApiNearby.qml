@@ -10,24 +10,15 @@ Item {
   signal emit(var people)
   signal request()
 
-  property int messageId: -1
-  function publish(message) {
+  property var messageId: ({self: -1, others: -1})
+  function publish(message, type) {
     if (Native.nearbyStatus !== 2) return;
-    if (messageId >= 0) Native.unpublishMessage(messageId);
-    console.log("Publishing:", message, "fork.self");
-    var id = Native.publishMessage(message, "fork.self");
-    console.log("Publish id:", id);
-    messageId = id;
-  }
-
-  property int messagePeopleId: -1
-  function publishPeople(messagePeople) {
-    if (Native.nearbyStatus !== 2) return;
-    if (messagePeopleId >= 0) Native.unpublishMessage(messagePeopleId);
-    console.log("Publishing:", messagePeople, "fork.others");
-    var id = Native.publishMessage(messagePeople, "fork.others");
-    console.log("Publish id:", id);
-    messagePeopleId = id;
+    if (type !== 'self' && type !== 'others') return;
+    if (messageId[type] >= 0) Native.unpublishMessage(messageId[type]);
+    console.log("Publishing:", type, message);
+    var id = Native.publishMessage(message, 'tosc.' + type);
+    console.log("Publish id:", type, id);
+    messageId[type] = id;
   }
 
   function connect() {
@@ -57,21 +48,15 @@ Item {
     onNearbyMessage: {
       console.log("NearbyMessage:", status, message, type)
       var msg = JSON.parse(message);
-      var people = [];
-      switch (type.replace("fork.", "tosc.")) {
-      case "tosc.self":
-        people.push(msg);
+      switch (type.replace(/^(fork|tosc)\./)) {
+      case 'self':
+        nearby.emit([msg]);
         break;
-      case "tosc.others":
-        msg.forEach(function(entry) {
-          people.push(entry);
-        });
+      case 'others':
+        nearby.emit(msg);
         break;
       default:
         return;
-      }
-      if (people.length > 0) {
-        nearby.emit(people);
       }
     }
     onNearbyOwnMessage: console.log("NearbyOwnMessage:", status, id, message, type)
