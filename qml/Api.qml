@@ -38,9 +38,10 @@ Item {
   property ApiNearby nearby: ApiNearby {
     enabled: api.enabled
     onEmit: {
-      for (var i = 0; i < people.length; i++) {
-        jsonPeople.push(people[i]);
-      }
+      people.forEach(function(entry) {
+        entry.hops += api.addHop;
+        jsonPeople.push(entry);
+      });
       processPeople();
     }
     onRequest: api.publish()

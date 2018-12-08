@@ -60,12 +60,10 @@ Item {
       var people = [];
       switch (type.replace("fork.", "tosc.")) {
       case "tosc.self":
-        msg.hops = api.addHop;
         people.push(msg);
         break;
       case "tosc.others":
         msg.forEach(function(entry) {
-          entry.hops += api.addHop;
           people.push(entry);
         });
         break;
